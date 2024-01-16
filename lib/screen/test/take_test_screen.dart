@@ -3,11 +3,10 @@ import 'package:byjus/constants/images.dart';
 import 'package:byjus/constants/textWidget.dart';
 import 'package:byjus/screen/test/highlight_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class TakeTestScreen extends StatefulWidget {
-  TakeTestScreen({Key? key}) : super(key: key);
+  TakeTestScreen({super.key});
 
   @override
   State<TakeTestScreen> createState() => _TakeTestScreenState();

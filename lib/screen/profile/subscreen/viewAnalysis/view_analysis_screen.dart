@@ -7,7 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class ViewAnalysisScreen extends StatelessWidget {
-  const ViewAnalysisScreen({Key? key}) : super(key: key);
+  const ViewAnalysisScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

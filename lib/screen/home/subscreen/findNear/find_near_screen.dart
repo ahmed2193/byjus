@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class FindNearestScreen extends StatelessWidget {
-  const FindNearestScreen({Key? key}) : super(key: key);
+  const FindNearestScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

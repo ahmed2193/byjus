@@ -2,7 +2,7 @@ import 'package:byjus/constants/colors.dart';
 import 'package:byjus/constants/images.dart';
 import 'package:byjus/constants/textWidget.dart';
 import 'package:byjus/controller/home_controller.dart';
-import 'package:byjus/screen/auth/enter_phone_screen.dart';
+import 'package:byjus/features/auth/presentation/screens/login_screen.dart';
 import 'package:byjus/screen/bookmark/bookmark_screen.dart';
 import 'package:byjus/screen/helpCenter/help_center_screen.dart';
 import 'package:byjus/screen/learningAnalysis/learning_analysis_screen.dart';
@@ -77,7 +77,7 @@ class DrawerScreen extends StatelessWidget {
                         if (index == 1) {
                           Get.to(LearningAnalysisScreen());
                         }
-                        if(index==2){
+                        if (index == 2) {
                           Get.to(BookMarkScreen());
                         }
                         if (index == 3) {
@@ -164,22 +164,19 @@ class DrawerScreen extends StatelessWidget {
                                 Expanded(
                                   child: MaterialButton(
                                     onPressed: () {
-                                      Get.offAll(EnterPhoneScreen());
+                                      Get.offAll(LoginScreen());
                                     },
                                     height: 40,
                                     elevation: 0,
                                     child: TextWidget.openSansMediumText(
-                                      color: ColorConst.textColor22,
-                                      fontSize: 18.0,
-                                      text: "Yes"
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                      side: BorderSide(
                                         color: ColorConst.textColor22,
-                                        width: 1
-                                      )
-                                    ),
+                                        fontSize: 18.0,
+                                        text: "Yes"),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                        side: BorderSide(
+                                            color: ColorConst.textColor22,
+                                            width: 1)),
                                   ),
                                 ),
                                 SizedBox(
@@ -196,10 +193,9 @@ class DrawerScreen extends StatelessWidget {
                                     child: TextWidget.openSansMediumText(
                                         color: ColorConst.whiteF0,
                                         fontSize: 18.0,
-                                        text: "No"
-                                    ),
+                                        text: "No"),
                                     shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(12),
+                                      borderRadius: BorderRadius.circular(12),
                                     ),
                                   ),
                                 ),

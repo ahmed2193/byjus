@@ -1,10 +1,7 @@
 import 'package:byjus/constants/colors.dart';
-import 'package:byjus/constants/images.dart';
 import 'package:byjus/constants/textWidget.dart';
-import 'package:byjus/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 
 commonColumn({text, text2, subText, image, btnText, void Function()? onTap}) {
   return Expanded(

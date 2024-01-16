@@ -9,26 +9,13 @@ import 'package:get_it/get_it.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  // Blocs
+  // controllers
   // sl.registerFactory<LocaleCubit>(
   //     () => LocaleCubit(changeLangUseCase: sl(), getSavedLangUseCase: sl()));
   // sl.registerFactory<ThemeCubit>(() => ThemeCubit(
   //       preferenceManager: sl(),
   //     ));
 
-  // // Use cases
-  // sl.registerLazySingleton<GetSavedLang>(
-  //     () => GetSavedLang(langRepository: sl()));
-  // sl.registerLazySingleton<ChangeLang>(() => ChangeLang(langRepository: sl()));
-
-  // // Repository
-  // sl.registerLazySingleton<LangRepository>(
-  //     () => LangRepositoryImpl(langLocalDataSource: sl()));
-
-  // // Data sources
-  // sl.registerLazySingleton<LangLocalDataSource>(
-  //   () => LangLocalDataSourceImpl(sharedPreferences: sl()),
-  // );
 
   // Features
   initAuthFeature();

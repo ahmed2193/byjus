@@ -4,7 +4,6 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../core/error/failures.dart';
-import '../../data/models/user_model.dart';
 import '../repositories/auth_repository.dart';
 
 class Login implements UseCase<BaseResponse, LoginParams> {
@@ -14,23 +13,31 @@ class Login implements UseCase<BaseResponse, LoginParams> {
   @override
   Future<Either<Failure, BaseResponse>> call(LoginParams params) async =>
       await authRepository.login(
-        email: params.email,
-        password: params.password,
+        loginData: params,
       );
 }
 
 class LoginParams extends Equatable {
-  final String email;
-  final String password;
+  final String countryCode;
+  final String phone;
+  final String dviceType;
+  final String signUpType;
+  final String deviceToken;
 
   const LoginParams({
-    required this.email,
-    required this.password,
+    required this.countryCode,
+    required this.phone,
+    required this.deviceToken,
+    required this.signUpType,
+    required this.dviceType,
   });
 
   @override
   List<Object> get props => [
-        email,
-        password,
+        countryCode,
+        phone,
+        dviceType,
+        signUpType,
+        dviceType,
       ];
 }

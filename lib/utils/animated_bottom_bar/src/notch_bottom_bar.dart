@@ -47,7 +47,7 @@ class AnimatedNotchBottomBar extends StatefulWidget {
   final Color notchColor;
 
   const AnimatedNotchBottomBar(
-      {Key? key,
+      {super.key,
       required this.pageController,
       required this.bottomBarItems,
       required this.onTap,
@@ -59,8 +59,7 @@ class AnimatedNotchBottomBar extends StatefulWidget {
       this.blurOpacity = 0.5,
       this.blurFilterX = 5.0,
       this.blurFilterY = 10.0,
-      this.notchColor = Colors.white})
-      : super(key: key);
+      this.notchColor = Colors.white});
 
   @override
   State<StatefulWidget> createState() => _AnimatedNotchBottomBarState();

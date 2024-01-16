@@ -6,7 +6,7 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:byjus/injection_container.dart' as di;
 
 class TermsAndConditionsScreen extends StatelessWidget {
-   TermsAndConditionsScreen({Key? key}) : super(key: key);
+   TermsAndConditionsScreen({super.key});
 
   final TermsAndConditionsController termsAndConditionsController =
       Get.put(di.sl<TermsAndConditionsController>());

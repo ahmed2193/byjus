@@ -1,6 +1,5 @@
 import 'package:byjus/utils/usecases/usecase.dart';
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
 import 'package:get/get.dart';
 import '../../../../core/error/failures.dart';
 import '../../domain/usecases/get_terms_and_conditions.dart';

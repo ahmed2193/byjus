@@ -4,7 +4,6 @@ import 'package:byjus/constants/textWidget.dart';
 import 'package:byjus/controller/learning_analysis_controller.dart';
 import 'package:byjus/screen/learningAnalysis/performance_view.dart';
 import 'package:byjus/screen/learningAnalysis/progress_view.dart';
-import 'package:byjus/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';

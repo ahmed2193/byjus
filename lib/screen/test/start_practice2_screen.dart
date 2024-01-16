@@ -1,7 +1,6 @@
 import 'package:byjus/constants/colors.dart';
 import 'package:byjus/constants/images.dart';
 import 'package:byjus/constants/textWidget.dart';
-import 'package:byjus/controller/test_controller.dart';
 import 'package:byjus/screen/test/start_practice3_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

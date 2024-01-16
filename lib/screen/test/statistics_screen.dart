@@ -1,14 +1,11 @@
 import 'package:byjus/constants/colors.dart';
 import 'package:byjus/constants/images.dart';
 import 'package:byjus/constants/textWidget.dart';
-import 'package:byjus/screen/test/play_video_screen.dart';
-import 'package:byjus/screen/test/view_solution_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class StatisticsScreen extends StatelessWidget {
-  const StatisticsScreen({Key? key}) : super(key: key);
+  const StatisticsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

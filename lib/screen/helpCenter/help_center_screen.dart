@@ -4,11 +4,10 @@ import 'package:byjus/constants/textWidget.dart';
 import 'package:byjus/screen/helpCenter/delete_account_screen.dart';
 import 'package:byjus/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class HelpCenterScreen extends StatelessWidget {
-  const HelpCenterScreen({Key? key}) : super(key: key);
+  const HelpCenterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

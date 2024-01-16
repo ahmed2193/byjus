@@ -4,7 +4,6 @@ import 'package:byjus/constants/textWidget.dart';
 import 'package:byjus/controller/home_controller.dart';
 import 'package:byjus/screen/Drawer/drawer_screen.dart';
 import 'package:byjus/screen/Physics/physics_screen.dart';
-import 'package:byjus/screen/home/subscreen/findNear/find_near_screen.dart';
 import 'package:byjus/screen/home/utills/home_utills.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';

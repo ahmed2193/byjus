@@ -1,5 +1,6 @@
+import 'package:byjus/features/auth/presentation/screens/login_screen.dart';
+
 import 'injection_container.dart' as di;
-import 'package:byjus/screen/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,14 +11,15 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       home:
-          //  TermsAndConditionsScreen(),
-          SplashScreen(),
+          //  EnterOtpScreen(),
+           LoginScreen(),
+          // SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

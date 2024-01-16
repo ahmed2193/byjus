@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class PlayVideoScreen extends StatelessWidget {
-  const PlayVideoScreen({Key? key}) : super(key: key);
+  const PlayVideoScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

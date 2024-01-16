@@ -44,4 +44,13 @@ class AppStrings {
   static const String userName = "username_email";
   static const String data = "data";
   static const String pageContent = "description";
+  static const String countryCcode = "country_code";
+  static const String phone = "phone";
+  static const String deviceType = "device_type";
+  static const String deviceToken = "device_token";
+  static const String signupType = "signup_type";
+  static const String userId = "user_id";
+  static const String otpCode = "otp_code";
+  static const String code = "code";
+
 }

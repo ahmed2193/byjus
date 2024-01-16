@@ -1,11 +1,10 @@
 import 'package:byjus/constants/colors.dart';
 import 'package:byjus/constants/textWidget.dart';
-import 'package:byjus/widgets/common_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SelectYourCityScreen extends StatelessWidget {
-  const SelectYourCityScreen({Key? key}) : super(key: key);
+  const SelectYourCityScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

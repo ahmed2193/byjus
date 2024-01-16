@@ -5,10 +5,9 @@ class ErrorsWidget extends StatelessWidget {
   final VoidCallback? onRetryPressed;
 
   const ErrorsWidget(
-      {Key? key,
+      {super.key,
       //  required this.msg,
-      this.onRetryPressed})
-      : super(key: key);
+      this.onRetryPressed});
 
   @override
   Widget build(BuildContext context) {

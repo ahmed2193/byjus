@@ -9,7 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class HighlightScreen extends StatelessWidget {
-  const HighlightScreen({Key? key}) : super(key: key);
+  const HighlightScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

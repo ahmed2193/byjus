@@ -1,14 +1,10 @@
 import 'package:byjus/constants/colors.dart';
-import 'package:byjus/constants/images.dart';
 import 'package:byjus/constants/textWidget.dart';
 import 'package:byjus/controller/physics_controller.dart';
 import 'package:byjus/screen/Physics/physics_screen.dart';
 import 'package:byjus/screen/Physics/subScreen/electrictCharges/exerciseView/exercise_view.dart';
-import 'package:byjus/screen/Physics/subScreen/electrictCharges/idea_charge_screen.dart';
 import 'package:byjus/screen/Physics/subScreen/electrictCharges/learnView/learn_view.dart';
-import 'package:byjus/screen/Physics/subScreen/video/video_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class ElectricChargesScreen extends StatelessWidget {

@@ -2,13 +2,12 @@ import 'package:byjus/constants/colors.dart';
 import 'package:byjus/constants/images.dart';
 import 'package:byjus/constants/textWidget.dart';
 import 'package:byjus/screen/Physics/subScreen/electrictCharges/charge_behaviour_screen.dart';
-import 'package:byjus/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class IdeaChargeScreen extends StatelessWidget {
-  const IdeaChargeScreen({Key? key}) : super(key: key);
+  const IdeaChargeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

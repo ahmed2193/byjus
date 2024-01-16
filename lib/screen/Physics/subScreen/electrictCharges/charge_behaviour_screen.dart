@@ -7,7 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class ChargeBehaviourScreen extends StatelessWidget {
-  const ChargeBehaviourScreen({Key? key}) : super(key: key);
+  const ChargeBehaviourScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
