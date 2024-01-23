@@ -1,10 +1,12 @@
 import 'package:byjus/constants/colors.dart';
 import 'package:byjus/constants/images.dart';
 import 'package:byjus/constants/textWidget.dart';
+import 'package:byjus/core/preferences/preferences_manager.dart';
 import 'package:byjus/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:byjus/injection_container.dart' as di;
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -133,7 +135,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             duration: Duration(seconds: 1),
                             curve: Curves.easeInOut);
                       } else {
-                        Get.to(LoginScreen());
+                        _openLoginScreen();
                       }
                     },
                     child: Container(
@@ -155,5 +157,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         ],
       ),
     );
+  }
+
+  void _openLoginScreen() {
+    di.sl<PreferencesManager>().setOnBoardingDone();
+    Get.to(LoginScreen());
   }
 }

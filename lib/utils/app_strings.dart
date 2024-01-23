@@ -41,7 +41,7 @@ class AppStrings {
   static const String lang = 'App-Language';
   static const String firstName = 'first_name';
   static const String lastName = 'last_name';
-  static const String userName = "username_email";
+  static const String userName = "username";
   static const String data = "data";
   static const String pageContent = "description";
   static const String countryCcode = "country_code";

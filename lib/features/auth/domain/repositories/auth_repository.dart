@@ -24,5 +24,6 @@ abstract class AuthRepository {
   Future<Either<Failure, BaseResponse>> getClassList(
   );
 
- 
+   Future<Either<Failure, bool>> logout();
+
 }

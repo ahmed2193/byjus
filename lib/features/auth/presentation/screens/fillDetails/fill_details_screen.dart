@@ -3,9 +3,10 @@ import 'dart:developer';
 import 'package:byjus/constants/colors.dart';
 import 'package:byjus/constants/textWidget.dart';
 import 'package:byjus/features/auth/presentation/controllers/register_controller.dart';
-import 'package:byjus/screen/auth/fillDetails/location_screen.dart';
+import 'package:byjus/features/auth/presentation/screens/fillDetails/location_screen.dart';
 import 'package:byjus/features/auth/presentation/screens/fillDetails/registration_screen.dart';
 import 'package:byjus/screen/auth/fillDetails/select_grade_screen.dart';
+import 'package:byjus/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:byjus/injection_container.dart' as di;
@@ -76,22 +77,28 @@ class _FillDetailsScreenState extends State<FillDetailsScreen> {
               ? Container()
               : MaterialButton(
                   onPressed: () {
-                    if (controller.formKey.currentState!.validate() &&
-                        controller.selectedGender.isNotEmpty) {
-                      log('gggg');
-                      pageController.nextPage(
-                          duration: Duration(milliseconds: 300),
-                          curve: Curves.ease);
-                    }
-                    log(controller.className.value);
-                    log(controller.boardName.value);
-                    if (controller.className.isNotEmpty &&
-                        controller.boardName.isNotEmpty) {
-                      log(controller.className.value);
-                      log(controller.boardName.value);
-                      pageController.nextPage(
-                          duration: Duration(milliseconds: 300),
-                          curve: Curves.ease);
+                    if (selectedIndex == 0) {
+                      if (controller.selectedGender.isEmpty) {
+                        Constants.showToast(message: 'please select a gender');
+                      }
+
+                      if (controller.formKey.currentState!.validate() &&
+                          controller.selectedGender.isNotEmpty) {
+                        pageController.nextPage(
+                            duration: Duration(milliseconds: 300),
+                            curve: Curves.ease);
+                      }
+                    } else {
+                      if (controller.className.isNotEmpty &&
+                          controller.boardName.isNotEmpty) {
+                        log(controller.className.value);
+                        log(controller.boardName.value);
+                        pageController.nextPage(
+                            duration: Duration(milliseconds: 300),
+                            curve: Curves.ease);
+                      } else {
+                        Constants.showToast(message: 'please select a Grade');
+                      }
                     }
                   },
                   height: 47,
@@ -106,7 +113,7 @@ class _FillDetailsScreenState extends State<FillDetailsScreen> {
                 ),
           selectedIndex != 2
               ? SizedBox(
-                  height: 150,
+                  height: 50,
                 )
               : Container()
         ],

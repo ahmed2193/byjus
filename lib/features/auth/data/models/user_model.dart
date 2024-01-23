@@ -26,13 +26,15 @@ class Data {
   String? id;
   String? countryCode;
   String? phone;
+  String? token;
 
-  Data({this.id, this.countryCode, this.phone});
+  Data({this.id, this.countryCode, this.phone , this.token});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     countryCode = json['country_code'];
     phone = json['phone'];
+    token = json['token']==null?null:json['token'];
   }
 
   Map<String, dynamic> toJson() {
@@ -40,6 +42,7 @@ class Data {
     data['id'] = id;
     data['country_code'] = countryCode;
     data['phone'] = phone;
+    data['token'] = token;
     return data;
   }
 }

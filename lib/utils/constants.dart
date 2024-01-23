@@ -1,11 +1,14 @@
 import 'dart:convert';
 
 import 'package:byjus/core/error/failures.dart';
+import 'package:byjus/utils/dialogs/confirmation_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart'as g;
 
+import '../features/auth/presentation/controllers/logout_controller.dart';
 import 'app_strings.dart';
 
 // ignore: avoid_classes_with_only_static_members
@@ -87,15 +90,17 @@ class Constants {
       textColor: Colors.white,
     );
   }
-  // static Future<void> showLogoutDialog(BuildContext context) async {
-  //   return showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) => ConfirmationDialog(
-  //       alertMsg: AppLocalizations.of(context)!.translate('want_to_logout')!,
-  //       onTapConfirm: () => context.read<LoginCubit>().logout(context: context),
-  //     ),
-  //   );
-  // }
+  static Future<void> showLogoutDialog(BuildContext context) async {
+     final LogoutController controller = g.Get.find();
+
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => ConfirmationDialog(
+        alertMsg: "Do you want to logout ?",
+        onTapConfirm: () => controller.logout(context: context),
+      ),
+    );
+  }
   static dynamic decodeJson(Response<dynamic> response) {
     final responseJson = jsonDecode(response.data.toString());
     return responseJson;

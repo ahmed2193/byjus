@@ -1,9 +1,11 @@
 import 'package:byjus/core/api/base_response.dart';
 import 'package:byjus/core/api/status_code.dart';
+import 'package:byjus/core/preferences/preferences_manager.dart';
 import 'package:byjus/features/auth/data/models/user_model.dart';
 import 'package:byjus/features/auth/domain/usecases/register.dart';
 import 'package:byjus/features/auth/presentation/controllers/app_state.dart';
 import 'package:byjus/features/auth/presentation/screens/fillDetails/registration_screen.dart';
+import 'package:byjus/screen/home/home_screen.dart';
 import 'package:byjus/utils/constants.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +16,12 @@ import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../core/error/failures.dart';
+import 'package:byjus/injection_container.dart' as di;
 
 class RegisterController extends GetxController {
   final Register registerUseCase;
-
-  RegisterController({required this.registerUseCase});
+  RegisterController(
+      {required this.registerUseCase,});
   var state = ApiState.initial.obs; // Default to loading state
   RxBool isLoading = false.obs;
   RxBool isError = false.obs;
@@ -95,12 +98,12 @@ class RegisterController extends GetxController {
           // signUpType: signUpType,
           deviceToken: deviceToken,
           username: useNameController.text,
-          latitude:latitude.value.toString(),
-          longitude:longitude.toString(),
+          latitude: latitude.value.toString(),
+          longitude: longitude.toString(),
           deviceType: dviceType,
-          board:boardName.value,
+          board: boardName.value,
           classValue: className.value,
-          schoolName: '',
+          schoolName: 'test',
           gender: selectedGender.value.toString(),
           address: streetAddress.value.toString(),
           userId: userId),
@@ -117,8 +120,9 @@ class RegisterController extends GetxController {
         if (response.statusCode == StatusCode.ok && response.message == null) {
           authenticatedUser = response.data;
           Constants.showToast(message: authenticatedUser!.message!);
-
-          // Get.to(EnterOtpScreen());
+          await di.sl<PreferencesManager>()
+              .setAccessToken(authenticatedUser!.data!.token!);
+          Get.offAll(HomeScreen());
         } else {
           isError.value = true;
           errorMessage.value = response.message!;

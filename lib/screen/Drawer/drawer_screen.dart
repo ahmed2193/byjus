@@ -2,6 +2,7 @@ import 'package:byjus/constants/colors.dart';
 import 'package:byjus/constants/images.dart';
 import 'package:byjus/constants/textWidget.dart';
 import 'package:byjus/controller/home_controller.dart';
+import 'package:byjus/features/auth/presentation/controllers/logout_controller.dart';
 import 'package:byjus/features/auth/presentation/screens/login_screen.dart';
 import 'package:byjus/screen/bookmark/bookmark_screen.dart';
 import 'package:byjus/screen/helpCenter/help_center_screen.dart';
@@ -13,6 +14,7 @@ import 'package:byjus/screen/termsCondition/terms_condition_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:byjus/injection_container.dart' as di;
 
 class DrawerScreen extends StatelessWidget {
   final HomeController homeController = Get.find();
@@ -139,6 +141,9 @@ class DrawerScreen extends StatelessWidget {
               ),
               MaterialButton(
                 onPressed: () {
+                  final LogoutController controller =
+                      Get.put(di.sl<LogoutController>());
+
                   Get.defaultDialog(
                       title: "",
                       contentPadding: EdgeInsets.zero,
@@ -164,7 +169,7 @@ class DrawerScreen extends StatelessWidget {
                                 Expanded(
                                   child: MaterialButton(
                                     onPressed: () {
-                                      Get.offAll(LoginScreen());
+                                      controller.logout(context: context);
                                     },
                                     height: 40,
                                     elevation: 0,

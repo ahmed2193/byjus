@@ -33,6 +33,8 @@ class CommonDetailScreenTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller:textEditingController ,
+      validator:validationFunction ,
       style: TextStyle(
           color: ColorConst.textColor22,
           fontSize: 14,

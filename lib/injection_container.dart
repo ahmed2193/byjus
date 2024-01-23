@@ -1,6 +1,7 @@
 import 'package:byjus/core/api/api_consumer.dart';
 import 'package:byjus/core/api/app_interceptors.dart';
 import 'package:byjus/core/api/dio_consumer.dart';
+import 'package:byjus/core/preferences/preferences_manager.dart';
 import 'package:byjus/features/auth/auth_injection_container.dart';
 import 'package:byjus/features/terms_and_conditions/terms_and_conditions_injection_container.dart';
 import 'package:dio/dio.dart';
@@ -32,6 +33,7 @@ Future<void> init() async {
       request: true,
       requestBody: true));
   sl.registerLazySingleton(() => AppIntercepters());
-
+  GetIt.I
+        .registerLazySingleton<PreferencesManager>(() => PreferencesManager());
   // sl.registerLazySingleton(() => InternetConnectionChecker());
 }

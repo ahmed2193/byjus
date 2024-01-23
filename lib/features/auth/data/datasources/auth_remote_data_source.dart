@@ -1,5 +1,6 @@
 import 'package:byjus/core/api/end_points.dart';
 import 'package:byjus/core/error/exceptions.dart';
+import 'package:byjus/core/preferences/preferences_manager.dart';
 import 'package:byjus/features/auth/data/models/board_and_class_model.dart';
 import 'package:byjus/features/auth/domain/usecases/login.dart';
 import 'package:byjus/features/auth/domain/usecases/otp_verify.dart';
@@ -13,6 +14,7 @@ import '../../../../core/api/base_response.dart';
 import '../../../../core/api/status_code.dart';
 
 import '../models/user_model.dart';
+import 'package:byjus/injection_container.dart' as di;
 
 abstract class AuthRemoteDataSource {
   Future<BaseResponse> login({
@@ -28,6 +30,7 @@ abstract class AuthRemoteDataSource {
 
   Future<BaseResponse> getBoardList();
   Future<BaseResponse> getClassList();
+  Future<bool> logout();
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -94,24 +97,24 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Future<BaseResponse> register({required RegisterParams params}) async {
-    final response = await apiConsumer.post(
-      EndPoints.otpVerify,
-      formDataIsEnabled: true,
-      body: {
-        AppStrings.userName: params.username,
-        AppStrings.userId: params.userId,
-        AppStrings.countryCcode: params.countryCode,
-        AppStrings.phone: params.phone,
-        AppStrings.latitude: params.latitude,
-        AppStrings.longitude: params.longitude,
-        AppStrings.deviceToken: params.deviceToken,
-        AppStrings.board: params.board,
-        AppStrings.classValue: params.classValue,
-        AppStrings.schoolName: params.schoolName,
-        AppStrings.gender: params.gender,
-        AppStrings.address: params.address,
-      },
-    );
+    var body = {
+      AppStrings.userName: params.username,
+      AppStrings.userId: params.userId,
+      AppStrings.countryCcode: params.countryCode,
+      AppStrings.phone: params.phone,
+      AppStrings.latitude: params.latitude,
+      AppStrings.longitude: params.longitude,
+      AppStrings.deviceToken: params.deviceToken,
+      AppStrings.board: params.board,
+      AppStrings.classValue: params.classValue,
+      AppStrings.schoolName: params.schoolName,
+      AppStrings.gender: params.gender,
+      AppStrings.address: params.address,
+      AppStrings.deviceType: params.deviceToken,
+    };
+    print(body);
+    final response = await apiConsumer.post(EndPoints.signup,
+        formDataIsEnabled: true, body: body);
 
     final BaseResponse baseResponse =
         BaseResponse(statusCode: response.statusCode);
@@ -164,5 +167,12 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       throw const ServerException();
     }
     return baseResponse;
+  }
+
+  @override
+  Future<bool> logout() async {
+    final prefs = di.sl<PreferencesManager>();
+    await prefs.clearToken();
+    return true;
   }
 }
