@@ -34,7 +34,7 @@ class AppStrings {
   static const String cookie = 'Cookie';
   static const String apiKeyCode = 'topperAPP';
   static const String cookieCode =
-      'PHPSESSID=49c9996e3c600a2764709e2324698165';
+      'PHPSESSID=5cfd903f51de166c590fc52d1ee5829a';
   static const String contentType = 'Content-Type';
   static const String applicationJson = 'application/json';
   static const String bearer = 'Bearer ';
@@ -51,6 +51,19 @@ class AppStrings {
   static const String signupType = "signup_type";
   static const String userId = "user_id";
   static const String otpCode = "otp_code";
+  static const String username = "username";
+  static const String countrycode = "country_code";
+  static const String  latitude= "latitude";
+  static const String longitude = "longitude";
+  static const String  board= "board";
+  static const String classValue = "class";
+  static const String schoolName = "school_name";
+  static const String gender = "gender";
+  static const String address = "address";
   static const String code = "code";
+
+ 
+
+
 
 }

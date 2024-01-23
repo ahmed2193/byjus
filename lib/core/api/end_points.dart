@@ -4,4 +4,6 @@ class EndPoints {
   static const String signup = "user/signup";
   static const String otpVerify = "user/otp_verify";
   static const String termsConditions = "service/termconition_detail";
+  static const String boardList = "service/boardlist";
+  static const String classList = "service/class_list";
 }

@@ -1,7 +1,10 @@
 import 'package:byjus/constants/colors.dart';
+import 'package:byjus/constants/images.dart';
 import 'package:byjus/constants/textWidget.dart';
+import 'package:byjus/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 commonColumn({text, text2, subText, image, btnText, void Function()? onTap}) {
   return Expanded(
@@ -19,9 +22,8 @@ commonColumn({text, text2, subText, image, btnText, void Function()? onTap}) {
             height: 185,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: ColorConst.whiteF2,
-              borderRadius: BorderRadius.circular(12)
-            ),
+                color: ColorConst.whiteF2,
+                borderRadius: BorderRadius.circular(12)),
             padding: EdgeInsets.all(12),
             child: Column(
               children: [
@@ -66,64 +68,60 @@ void modalBottomSheetMenu(context) {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(40.0),
-                topRight: Radius.circular(40.0))
-        ),
+                topRight: Radius.circular(40.0))),
         builder: (builder) {
           return Container(
             color: Colors.transparent,
             child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40.0),
-                      topRight: Radius.circular(40.0))
-              ),
-            //   child: SingleChildScrollView(
-            //     child: Padding(
-            //       padding: const EdgeInsets.symmetric(horizontal: 60.0,vertical: 24),
-            //       child: Column(
-            //         mainAxisAlignment: MainAxisAlignment.center,
-            //         children: [
-            //            TextWidget.openSansSemiBoldText(
-            //              text: "BYJU’S Classes",
-            //              color: ColorConst.textColor22,
-            //              fontSize: 20.0
-            //            ),
-            //           SizedBox(
-            //             height: 9,
-            //           ),
-            //           TextWidget.openSansRegularText(
-            //             color: ColorConst.grey64,
-            //             fontSize: 16.0,
-            //             text: "Experience the best after school tuitions. hurry only a few slots left!",
-            //             textAlign: TextAlign.center
-            //           ),
-            //           SizedBox(
-            //             height: 25,
-            //           ),
-            //           SvgPicture.asset(ImageConst.homeBottomSheetImage),
-            //           SizedBox(
-            //             height: 25,
-            //           ),
-            //           CommonButton(
-            //             onTap: (){
-            //               Get.back();
-            //             },
-            //             text: "Book a Free Trial",
-            //           ),
-            //           SizedBox(
-            //             height: 15,
-            //           ),
-            //           TextWidget.openSansMediumText(
-            //             color: ColorConst.appColor,
-            //             fontSize: 18.0,
-            //             text: "Dismiss"
-            //           )
-            //         ],
-            //       ),
-            //     ),
-            //   )
-            ),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40.0),
+                        topRight: Radius.circular(40.0))),
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 60.0, vertical: 24),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextWidget.openSansSemiBoldText(
+                            text: "BYJU’S Classes",
+                            color: ColorConst.textColor22,
+                            fontSize: 20.0),
+                        SizedBox(
+                          height: 9,
+                        ),
+                        TextWidget.openSansRegularText(
+                            color: ColorConst.grey64,
+                            fontSize: 16.0,
+                            text:
+                                "Experience the best after school tuitions. hurry only a few slots left!",
+                            textAlign: TextAlign.center),
+                        SizedBox(
+                          height: 25,
+                        ),
+                        SvgPicture.asset(ImageConst.homeBottomSheetImage),
+                        SizedBox(
+                          height: 25,
+                        ),
+                        CommonButton(
+                          onTap: () {
+                            Get.back();
+                          },
+                          text: "Book a Free Trial",
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        TextWidget.openSansMediumText(
+                            color: ColorConst.appColor,
+                            fontSize: 18.0,
+                            text: "Dismiss")
+                      ],
+                    ),
+                  ),
+                )),
           );
         },
       );

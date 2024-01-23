@@ -8,7 +8,7 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
 
   String? validateEmail(dynamic email) {
     if (email!.trim().isEmpty) {
-      return 'email_validation';
+      return "PLease enter user name";
     }
     // else if (!isEmail(email)) {
     //   return 'email_not_valid')!;
@@ -18,7 +18,7 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
 
   String? validateUserName(dynamic userName) {
     if (userName!.trim().isEmpty) {
-      return 'user_name_validation';
+      return "PLease enter your name";
     }
     return null;
   }

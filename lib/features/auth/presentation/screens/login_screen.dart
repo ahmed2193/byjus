@@ -20,7 +20,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
   final LoginController apiController = Get.put(di.sl<LoginController>());
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _PhoneController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                 ),
               ),
               TextFormField(
-                controller: _PhoneController,
+                controller: _phoneController,
                 validator: validatePhoneNO,
                 keyboardType: TextInputType.phone,
                 style: TextStyle(
@@ -178,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                                 countryCode:
                                     apiController.selectedCountryCode.value,
                                 deviceToken: '123sahdsahd',
-                                phone: _PhoneController.value.text,
+                                phone: _phoneController.value.text,
                                 dviceType: 'A',
                                 signUpType: 'S',
                               );

@@ -1,5 +1,6 @@
 import 'package:byjus/features/auth/domain/usecases/login.dart';
 import 'package:byjus/features/auth/domain/usecases/otp_verify.dart';
+import 'package:byjus/features/auth/domain/usecases/register.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/api/base_response.dart';
@@ -48,5 +49,45 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
 
+  @override
+  Future<Either<Failure, BaseResponse>> getBoardList() async {
+    try {
+      final response = await authRemoteDataSource.getBoardList();
+      return Right(response);
+    } on ServerException catch (exception) {
+      return Left(
+        ServerFailure(
+          message: exception.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, BaseResponse>> getClassList() async {
+    try {
+      final response = await authRemoteDataSource.getClassList();
+      return Right(response);
+    } on ServerException catch (exception) {
+      return Left(
+        ServerFailure(
+          message: exception.message,
+        ),
+      );
+    }
+  }
+  @override
+  Future<Either<Failure, BaseResponse>> register({required RegisterParams params}) async {
+    try {
+      final response = await authRemoteDataSource.register(params: params);
+      return Right(response);
+    } on ServerException catch (exception) {
+      return Left(
+        ServerFailure(
+          message: exception.message,
+        ),
+      );
+    }
+  }
 
 }

@@ -1,123 +1,52 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
+import 'package:byjus/features/auth/data/models/board_and_class_model.dart';
+import 'package:byjus/features/auth/presentation/controllers/get_class_list_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:byjus/injection_container.dart' as di;
 
-class ApiController extends GetxController {
-  var apiState = ApiState.loading().obs;
+import 'features/auth/presentation/controllers/app_state.dart';
 
-  var responseData = ''.obs;
+class YourUI extends StatelessWidget {
+  final ClassListController boardListController = Get.put(di.sl<ClassListController>());
 
-  Future<void> fetchData() async {
-    apiState(ApiState.loading());
-    try {
-      var headers = {
-        'API-KEY': 'topperAPP',
-        'Cookie': 'PHPSESSID=49c9996e3c600a2764709e2324698165'
-      };
-      var dio = Dio();
-      var response = await dio.request(
-        'https://edu-network.in/api/v1/service/termconition_detail',
-        options: Options(
-          method: 'GET',
-          headers: headers,
-        ),
-      );
-
-      if (response.statusCode == 200) {
-        print(json.encode(response.data));
-        responseData.value = json.encode(response.data['data']['description']);
-        apiState(ApiState.success(responseData.value));
-      } else {
-        print(response.statusMessage);
-        apiState(ApiState.error('Error: ${response.statusMessage}')
-            as ApiState<String>);
-      }
-    } catch (e) {
-      print('Error: $e');
-      apiState(ApiState.error('Error: $e') as ApiState<String>);
-    }
-  }
-}
-
-class ApiState<T> {
-  final bool isLoading;
-  final bool isSuccess;
-  final bool isError;
-  final T? data;
-  final String? errorMessage;
-
-  ApiState._({
-    required this.isLoading,
-    required this.isSuccess,
-    required this.isError,
-    this.data,
-    this.errorMessage,
-  });
-
-  factory ApiState.loading() => ApiState<T>._(
-        isLoading: true,
-        isSuccess: false,
-        isError: false,
-      );
-
-  factory ApiState.success(T data) => ApiState<T>._(
-        isLoading: false,
-        isSuccess: true,
-        isError: false,
-        data: data,
-      );
-
-  factory ApiState.error(String errorMessage) => ApiState<T>._(
-        isLoading: false,
-        isSuccess: false,
-        isError: true,
-        errorMessage: errorMessage,
-      );
-}
-
-class name extends StatelessWidget {
-  name({super.key});
-  final ApiController apiController = Get.put(ApiController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Your App Title'),
+      ),
       body: Center(
-        child: Column(
-          children: [
-            CircularProgressIndicator(),
-            Obx(() {
-              final state = apiController.apiState.value;
-              print(apiController.apiState.value);
+        child: Obx(() {
+          if (boardListController.apiState.value == ApiState.loading) {
+            return CircularProgressIndicator();
+          } else if (boardListController.apiState.value == ApiState.success) {
+            // Use the boardAndClassData in your UI
+            return YourSuccessWidget(boardListController.classListData);
+          } else if (boardListController.apiState.value == ApiState.error) {
+            return Text('Error: ${boardListController.errorMessage.value}');
+          } else {
+            return Text('Unknown state');
+          }
+        }),
+      ),
+    );
+  }
+}
 
-              switch (state) {
-                case ApiState.loading:
-                  return CircularProgressIndicator();
-                case ApiState.success:
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Data loaded successfully'),
-                      Text(apiController.responseData.value),
-                    ],
-                  );
-                case ApiState.error:
-                  return Text(
-                      'Error: ${apiController.apiState.value.errorMessage}');
-                default:
-                  return Container();
-              }
-            }),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          apiController.fetchData();
-        },
-        child: Icon(Icons.refresh),
-      ),
+class YourSuccessWidget extends StatelessWidget {
+  final BoardAndClassModel? data;
+
+  YourSuccessWidget(this.data);
+
+  @override
+  Widget build(BuildContext context) {
+    // Use the data to build your UI
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text('Data Received: ${data?.data!.length.toString()! ?? 'null'}'),
+        // Add more UI components as needed
+      ],
     );
   }
 }
