@@ -11,6 +11,7 @@ import 'package:byjus/features/auth/presentation/controllers/login_controller.da
 import 'package:byjus/features/auth/presentation/controllers/logout_controller.dart';
 import 'package:byjus/features/auth/presentation/controllers/otp_verify_controller.dart';
 import 'package:byjus/features/auth/presentation/controllers/register_controller.dart';
+import 'package:byjus/features/auth/presentation/controllers/user_info_controller.dart';
 import 'package:byjus/injection_container.dart';
 
 import 'domain/usecases/get_class_list.dart';
@@ -46,6 +47,10 @@ void initAuthFeature() {
   sl.registerFactory<LogoutController>(
     () => LogoutController(
       logoutUseCase: sl(),
+    ),
+  );
+  sl.registerFactory<UserInfoController>(
+    () => UserInfoController(
     ),
   );
 

@@ -1,3 +1,4 @@
+import 'package:byjus/features/auth/presentation/controllers/user_info_controller.dart';
 import 'package:byjus/screen/splash/splash_screen.dart';
 
 import 'features/auth/presentation/controllers/register_controller.dart';
@@ -17,7 +18,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    Get.put(
+      di.sl<UserInfoController>(),
+    );
     return GetMaterialApp(
       home: SplashScreen(),
       debugShowCheckedModeBanner: false,

@@ -4,9 +4,10 @@ import 'package:byjus/constants/textWidget.dart';
 import 'package:byjus/controller/home_controller.dart';
 import 'package:byjus/core/preferences/preferences_manager.dart';
 import 'package:byjus/features/auth/data/models/user_model.dart';
- import 'package:byjus/features/home/presentation/controllers/get_subject_controller.dart';
+import 'package:byjus/features/auth/presentation/controllers/user_info_controller.dart';
+import 'package:byjus/features/home/presentation/controllers/get_subject_controller.dart';
 import 'package:byjus/screen/Drawer/drawer_screen.dart';
- import 'package:byjus/utils/loading_indicator.dart';
+import 'package:byjus/utils/loading_indicator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -24,12 +25,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final HomeController homeController = Get.put(HomeController());
+  final UserInfoController userInfoController = Get.find();
   final GlobalKey<ScaffoldState> _key = GlobalKey();
 
   @override
   initState() {
     super.initState();
-
+    userInfoController.getSavedLoginCredentials();
     // modalBottomSheetMenu(context);
   }
 
@@ -58,31 +60,34 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         centerTitle: true,
         actions: [
-             FutureBuilder(
-                  future:
-                      di.sl<PreferencesManager>().getSavedLoginCredentials(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<UserModel?> snapshot) {
-                    var userInfo;
-                    if (snapshot.hasData && snapshot.data != null) {
-                      userInfo = snapshot.data!.data;
-                     
-                    }
-                    
-                 return snapshot.hasData && snapshot.data != null?   Padding(
-                padding: const EdgeInsets.only(right: 26.0),
-                child:    ClipOval(
-                                child: Image.network(
-                                  userInfo.profileImage!,
-                                  height: 50,
-                                  width: 50,
-                                  fit: BoxFit
-                                      .cover, // You can adjust the BoxFit based on your preference
-                                ),
-                              ),
-              ):LoadingImageIndicator();
+          Obx(() {
+            switch (userInfoController.apiState.value) {
+              case ApiState.loading:
+                return LoadingImageIndicator(); // Show loading indicator
+              case ApiState.success:
+                // Show your content using controller.userInfo.value
+                return Padding(
+                  padding: const EdgeInsets.only(right: 26.0),
+                  child: ClipOval(
+                    child: CachedNetworkImage(
+                      imageUrl: userInfoController
+                          .userInfo.value!.data!.profileImage!,
+                      fit: BoxFit.cover,
+                      height: 50,
+                      width: 50,
+
+                      placeholder: (context, url) => LoadingImageIndicator(),
+                      errorWidget: (context, url, error) =>
+                          Icon(Icons.error), // Widget to display on error
+                    ),
+                  ),
+                );
+              case ApiState.error:
+                return Container();
+              default:
+                return Container();
             }
-          )
+          }),
         ],
       ),
       body: SingleChildScrollView(

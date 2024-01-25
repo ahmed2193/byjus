@@ -4,26 +4,27 @@ import 'package:byjus/constants/colors.dart';
 import 'package:byjus/constants/images.dart';
 import 'package:byjus/constants/textWidget.dart';
 import 'package:byjus/controller/home_controller.dart';
+import 'package:byjus/core/app_state.dart';
 import 'package:byjus/features/auth/presentation/controllers/logout_controller.dart';
+import 'package:byjus/features/auth/presentation/controllers/user_info_controller.dart';
 import 'package:byjus/screen/bookmark/bookmark_screen.dart';
 import 'package:byjus/screen/helpCenter/help_center_screen.dart';
 import 'package:byjus/screen/learningAnalysis/learning_analysis_screen.dart';
 import 'package:byjus/screen/notification/notification_screen.dart';
 import 'package:byjus/screen/privacyPolicy/privacy_policy_screen.dart';
-import 'package:byjus/screen/profile/subscreen/viewAnalysis/view_analysis_screen.dart';
 import 'package:byjus/screen/termsCondition/terms_condition_screen.dart';
 import 'package:byjus/utils/loading_indicator.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:byjus/injection_container.dart' as di;
 
-import '../../core/preferences/preferences_manager.dart';
-import '../../features/auth/data/models/user_model.dart';
-import '../../features/auth/presentation/controllers/login_controller.dart';
+import '../../features/profile/presentation/screens/subscreen/viewAnalysis/view_analysis_screen.dart';
 
 class DrawerScreen extends StatelessWidget {
   final HomeController homeController = Get.find();
+  final UserInfoController userInfoController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -37,58 +38,64 @@ class DrawerScreen extends StatelessWidget {
               SizedBox(
                 height: 55,
               ),
-              FutureBuilder(
-                  future:
-                      di.sl<PreferencesManager>().getSavedLoginCredentials(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<UserModel?> snapshot) {
-                    var userInfo;
-                    if (snapshot.hasData && snapshot.data != null) {
-                      userInfo = snapshot.data!.data;
-                    }
-                    return snapshot.hasData && snapshot.data != null
-                        ? Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipOval(
-                                child: Image.network(
-                                  userInfo.profileImage!,
-                                  height: 50,
-                                  width: 50,
-                                  fit: BoxFit
-                                      .cover, // You can adjust the BoxFit based on your preference
-                                ),
-                              ),
-                              SizedBox(
-                                width: 12,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  TextWidget.openSansSemiBoldText(
-                                      text: userInfo!.username,
-                                      color: ColorConst.black1A,
-                                      fontSize: 15.0),
-                                  TextWidget.openSansMediumText(
-                                      text: "JEE & NEET (11th)",
-                                      color: ColorConst.grey64,
-                                      fontSize: 12.0),
-                                  SizedBox(
-                                    height: 9,
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      Get.to(ViewAnalysisScreen());
-                                    },
-                                    child:
-                                        SvgPicture.asset(ImageConst.nextArrow),
-                                  ),
-                                ],
-                              )
-                            ],
-                          )
-                        : SizedBox();
-                  }),
+              Obx(() {
+                switch (userInfoController.apiState.value) {
+                  case ApiState.loading:
+                    return LoadingImageIndicator(); // Show loading indicator
+                  case ApiState.success:
+                    var userInfo = userInfoController.userInfo.value!.data!;
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipOval(
+                          child: CachedNetworkImage(
+                            imageUrl: userInfo.profileImage!,
+                            fit: BoxFit.cover,
+                            height: 50,
+                            width: 50,
+
+                            placeholder: (context, url) =>
+                                LoadingImageIndicator(),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error), // Widget to display on error
+                          ),
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextWidget.openSansSemiBoldText(
+                                text: userInfo!.username,
+                                color: ColorConst.black1A,
+                                fontSize: 15.0),
+                            TextWidget.openSansMediumText(
+                                text: userInfo.schoolName == null
+                                    ? ''
+                                    : userInfo.schoolName!,
+                                color: ColorConst.grey64,
+                                fontSize: 12.0),
+                            SizedBox(
+                              height: 9,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Get.to(ViewAnalysisScreen());
+                              },
+                              child: SvgPicture.asset(ImageConst.nextArrow),
+                            ),
+                          ],
+                        )
+                      ],
+                    );
+
+                  case ApiState.error:
+                    return Container();
+                  default:
+                    return Container();
+                }
+              }),
               ListView.builder(
                 shrinkWrap: true,
                 itemCount: homeController.menuList.length,

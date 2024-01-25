@@ -4,7 +4,6 @@ class AppStrings {
   static const String locale = 'locale';
   static const String id = 'id';
 
-
   static const String noRouteFound = 'no Route Found';
   static const String serverFailure = 'Server Failure';
   static const String cacheFailure = 'Cache Failure';
@@ -47,9 +46,9 @@ class AppStrings {
   static const String otpCode = "otp_code";
   static const String username = "username";
   static const String countrycode = "country_code";
-  static const String  latitude= "latitude";
+  static const String latitude = "latitude";
   static const String longitude = "longitude";
-  static const String  board= "board";
+  static const String board = "board";
   static const String classValue = "class";
   static const String schoolName = "school_name";
   static const String gender = "gender";
@@ -62,9 +61,5 @@ class AppStrings {
   static const String user = "user";
   static const String zipCode = "zipcode";
   static const String profileImage = "profile_image";
-
- 
-
-
-
+  static const String email = "email";
 }

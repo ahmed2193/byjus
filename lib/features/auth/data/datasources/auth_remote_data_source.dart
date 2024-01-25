@@ -103,6 +103,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     var body = {
       AppStrings.userName: params.username,
       AppStrings.userId: params.userId,
+      AppStrings.email: params.email,
       AppStrings.countryCcode: params.countryCode,
       AppStrings.phone: params.phone,
       AppStrings.latitude: params.latitude,
@@ -115,12 +116,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       AppStrings.address: params.address,
       AppStrings.deviceType: params.deviceToken,
       AppStrings.zipCode: params.zipcode,
-          if (params.profileImage != null) ...{
-          AppStrings.profileImage: await MultipartFile.fromFile(
-              params.profileImage!.absolute.path)
-        }
-
-
+      if (params.profileImage != null) ...{
+        AppStrings.profileImage:
+            await MultipartFile.fromFile(params.profileImage!.absolute.path)
+      }
     };
     print(body);
     final response = await apiConsumer.post(EndPoints.signup,
@@ -183,8 +182,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   Future<bool> logout({
     required int id,
   }) async {
-    final response = await apiConsumer.get(EndPoints.logout+id.toString(),
-        );
+    final response = await apiConsumer.get(
+      EndPoints.logout + id.toString(),
+    );
 
     final BaseResponse baseResponse =
         BaseResponse(statusCode: response.statusCode);

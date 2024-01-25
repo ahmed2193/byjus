@@ -69,6 +69,8 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                               ),
                             ),
                     ),
+                  
+                  
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: InkWell(

@@ -8,6 +8,7 @@ import 'package:byjus/features/terms_and_conditions/terms_and_conditions_injecti
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
+import 'features/profile/profile_injection_container.dart';
 import 'features/subject/subject_injection_container.dart';
 
 final sl = GetIt.instance;
@@ -25,6 +26,7 @@ Future<void> init() async {
   initTermsAndConditionsFeature();
   initHomeFeature();
   initSubjectFeature();
+  initProfileFeature();
   //core
 
   sl.registerLazySingleton(() => Dio());

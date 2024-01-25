@@ -5,6 +5,7 @@ import 'package:byjus/core/api/status_code.dart';
 import 'package:byjus/core/preferences/preferences_manager.dart';
 import 'package:byjus/features/auth/data/models/user_model.dart';
 import 'package:byjus/features/auth/domain/usecases/register.dart';
+import 'package:byjus/features/auth/presentation/controllers/user_info_controller.dart';
 import 'package:byjus/features/home/presentation/screens/home_screen.dart';
 import 'package:byjus/utils/constants.dart';
 import 'package:dartz/dartz.dart';
@@ -43,6 +44,8 @@ class RegisterController extends GetxController {
   var longitude = 0.0.obs;
   var streetAddress = "".obs;
   var detailedAddress = "".obs;
+  final UserInfoController userInfoController = Get.find();
+
   void setGender(String value) {
     selectedGender.value = value;
   }
@@ -83,17 +86,17 @@ class RegisterController extends GetxController {
     }
   }
 
-  Future<void> register({
-    // required GlobalKey<FormState> formKey,
+  Future<void> register(
+      {
+      // required GlobalKey<FormState> formKey,
 
-    required String countryCode,
-    required String phone,
-    required String dviceType,
-    required String userId,
-    required String deviceToken,
-    required BuildContext context,
-    File? profileImage
-  }) async {
+      required String countryCode,
+      required String phone,
+      required String dviceType,
+      required String userId,
+      required String deviceToken,
+      required BuildContext context,
+      File? profileImage}) async {
     isError.value = false;
     isLoading.value = true;
 
@@ -110,14 +113,13 @@ class RegisterController extends GetxController {
           deviceType: dviceType,
           board: boardId.value,
           classValue: classId.value,
-          schoolName:schoolNameController.text,
+          schoolName: schoolNameController.text,
           gender: selectedGender.value.toString(),
           address: streetAddress.value.toString(),
           userId: userId,
           zipcode: zipCodeController.text,
-          profileImage: profileImage
-          
-          ),
+          profileImage: profileImage,
+          email: emailController.text),
     );
     // var deviceid = await FlutterUdid.udid;
     isLoading.value = false;
@@ -144,9 +146,8 @@ class RegisterController extends GetxController {
           await di
               .sl<PreferencesManager>()
               .setAccessToken(authenticatedUser!.data!.token!);
-          await di
-              .sl<PreferencesManager>()
-              .saveLoginCredentials(userModel: authenticatedUser!);
+          await userInfoController.saveLoginCredentials(
+              userModel: authenticatedUser!);
           Get.offAll(HomeScreen());
         } else {
           isError.value = true;

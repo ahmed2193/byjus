@@ -3,6 +3,7 @@ import 'package:byjus/core/preferences/preferences_manager.dart';
 import 'package:byjus/features/auth/data/models/user_model.dart';
 import 'package:byjus/features/auth/domain/usecases/otp_verify.dart';
 import 'package:byjus/features/auth/presentation/controllers/login_controller.dart';
+import 'package:byjus/features/auth/presentation/controllers/user_info_controller.dart';
 import 'package:byjus/features/auth/presentation/screens/fillDetails/fill_details_screen.dart';
 import 'package:byjus/features/home/presentation/screens/home_screen.dart';
 import 'package:byjus/utils/constants.dart';
@@ -26,6 +27,7 @@ class OtpVerifyController extends GetxController {
   RxString errorMessage = ''.obs;
   UserModel? authenticatedUser;
   final LoginController loginController = Get.find();
+  final UserInfoController userInfoController = Get.find();
 
   Future<void> otpVerify({
     required String userId,
@@ -58,8 +60,7 @@ class OtpVerifyController extends GetxController {
             await di
                 .sl<PreferencesManager>()
                 .setAccessToken(authenticatedUser!.data!.token!);
-            await di
-                .sl<PreferencesManager>()
+            await userInfoController
                 .saveLoginCredentials(userModel: authenticatedUser!);
             Get.to(HomeScreen());
           } else {

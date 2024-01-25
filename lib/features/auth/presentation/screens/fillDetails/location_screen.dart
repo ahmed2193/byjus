@@ -144,8 +144,7 @@ class LocationScreen extends StatelessWidget {
                                       TextWidget.openSansBoldText(
                                           color: ColorConst.textColor22,
                                           fontSize: 14.0,
-                                          text:
-                                              "${controller.streetAddress}")
+                                          text: "${controller.streetAddress}")
                                     ],
                                   ),
                                   SizedBox(
@@ -189,11 +188,11 @@ class LocationScreen extends StatelessWidget {
                                         userId: loginController
                                             .authenticatedUser!.data!.id
                                             .toString(),
-                                    profileImage:File(_profileImageController
-                                        .profileImageUrl.value)
-                                    
-                                        
-                                        );
+                                        profileImage: _profileImageController
+                                                    .profileImageUrl.value.isNotEmpty 
+                                            ? File(_profileImageController
+                                                .profileImageUrl.value)
+                                            : null);
 
                                     // Get.offAll(HomeScreen());
                                   },

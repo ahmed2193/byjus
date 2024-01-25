@@ -31,10 +31,11 @@ class RegisterParams extends Equatable {
   final String gender;
   final String address;
   final String userId;
-   File? profileImage;
+  final String email;
+  File? profileImage;
   final String zipcode;
 
-   RegisterParams({
+  RegisterParams({
     required this.username,
     required this.countryCode,
     required this.phone,
@@ -49,7 +50,8 @@ class RegisterParams extends Equatable {
     required this.address,
     required this.userId,
     required this.zipcode,
-     this.profileImage,
+    required this.email,
+    this.profileImage,
   });
 
   @override
@@ -67,7 +69,8 @@ class RegisterParams extends Equatable {
         gender,
         address,
         userId,
+        email,
         zipcode,
-profileImage,
+        profileImage,
       ];
 }
