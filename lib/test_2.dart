@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:byjus/injection_container.dart' as di;
 
-import 'features/auth/presentation/controllers/app_state.dart';
+import 'core/app_state.dart';
 
 class YourUI extends StatelessWidget {
   final ClassListController boardListController = Get.put(di.sl<ClassListController>());
@@ -44,7 +44,7 @@ class YourSuccessWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text('Data Received: ${data?.data!.length.toString()! ?? 'null'}'),
+        Text('Data Received: ${data?.data!.length.toString() ?? 'null'}'),
         // Add more UI components as needed
       ],
     );

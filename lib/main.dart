@@ -1,6 +1,4 @@
-
 import 'package:byjus/screen/splash/splash_screen.dart';
-
 
 import 'features/auth/presentation/controllers/register_controller.dart';
 
@@ -19,12 +17,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(di.sl<RegisterController>());
 
     return GetMaterialApp(
-      home:
-       
-          SplashScreen(),
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

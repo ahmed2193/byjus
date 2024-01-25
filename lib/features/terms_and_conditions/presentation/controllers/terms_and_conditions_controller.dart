@@ -1,6 +1,7 @@
-import 'package:byjus/utils/usecases/usecase.dart';
+import 'package:byjus/core/usecase.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
+import '../../../../core/app_state.dart';
 import '../../../../core/error/failures.dart';
 import '../../domain/usecases/get_terms_and_conditions.dart';
 
@@ -32,4 +33,3 @@ class TermsAndConditionsController extends GetxController {
   }
 }
 
-enum ApiState { loading, success, error }

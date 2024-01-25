@@ -6,12 +6,13 @@ import 'package:byjus/features/auth/data/models/board_and_class_model.dart';
 import 'package:byjus/features/auth/presentation/controllers/get_board_list_controller.dart';
 import 'package:byjus/features/auth/presentation/controllers/get_class_list_controller.dart';
 import 'package:byjus/features/auth/presentation/controllers/register_controller.dart';
+import 'package:byjus/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:byjus/injection_container.dart' as di;
 
-import '../features/auth/presentation/controllers/app_state.dart';
+import '../core/app_state.dart';
 
 class CommonDetailScreenTextField extends StatelessWidget {
   final String? hintText;
@@ -20,6 +21,9 @@ class CommonDetailScreenTextField extends StatelessWidget {
   final bool? isEnable;
   final TextEditingController? textEditingController;
   final String? Function(dynamic)? validationFunction;
+  final ValueChanged<String>? onFieldSubmitted;
+    final TextInputAction? textInputAction;
+  final TextInputType? keyboardType;
 
   CommonDetailScreenTextField({
     this.hintText,
@@ -28,13 +32,23 @@ class CommonDetailScreenTextField extends StatelessWidget {
     this.isEnable,
     this.textEditingController,
     this.validationFunction,
+    this.onFieldSubmitted,
+this.textInputAction,
+this.keyboardType,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller:textEditingController ,
-      validator:validationFunction ,
+      onFieldSubmitted: onFieldSubmitted,
+      onTapOutside: (pointer) {
+        FocusScope.of(context).unfocus();
+      },
+      keyboardType: keyboardType,
+      controller: textEditingController,
+      validator: validationFunction,
+                textInputAction: textInputAction,
+
       style: TextStyle(
           color: ColorConst.textColor22,
           fontSize: 14,
@@ -51,7 +65,7 @@ class CommonDetailScreenTextField extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(color: ColorConst.greyE4)),
           suffixIcon: widget ?? SizedBox.shrink(),
-          prefixIcon: Padding(
+          prefixIcon:prefixIcon==null?null: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SvgPicture.asset(prefixIcon!),
           ),
@@ -107,6 +121,7 @@ selectGradeBottomSheet() {
       Get.put(di.sl<ClassListController>());
   final BoardListController boardListController =
       Get.put(di.sl<BoardListController>());
+  final RegisterController controller = Get.find();
 
   return Get.bottomSheet(
       Padding(
@@ -182,6 +197,34 @@ selectGradeBottomSheet() {
                             //   fontSize: 18.0,
                             // ),
                             // commonGradeGrid(list: gradeList3),
+
+                            Center(
+                              child: MaterialButton(
+                                onPressed: () {
+                                  if (controller.classId.isNotEmpty &&
+                                      controller.boardId.isNotEmpty) {
+                                    Get.back();
+                                    log(controller.classId.value);
+                                    log(controller.boardId.value);
+                                    controller.pageController.nextPage(
+                                        duration: Duration(milliseconds: 300),
+                                        curve: Curves.ease);
+                                  } else {
+                                    Constants.showToast(
+                                        message: 'please select a Grade');
+                                  }
+                                },
+                                height: 47,
+                                minWidth: 170,
+                                child: TextWidget.openSansBoldText(
+                                    text: "Continue",
+                                    color: ColorConst.white,
+                                    fontSize: 18.0),
+                                color: ColorConst.appColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(28)),
+                              ),
+                            ),
                           ],
                         );
                       } else if (boardListController.apiState.value ==
@@ -326,29 +369,26 @@ commonGradeGrid({
               mainAxisSpacing: 10,
               physics: NeverScrollableScrollPhysics(),
               children: List.generate(
-                list!.data!.length,
+                list.data!.length,
                 (index) =>
                     StatefulBuilder(builder: (BuildContext context, update) {
                   return GestureDetector(
                     onTap: () {
                       update(() {
-                     
                         if (selectedIndex == index) {
                           selectedIndex = -1;
                         } else {
                           selectedIndex = index;
                           if (classListController
                                   .classListData!.data![index].name ==
-                              list!.data![index].name) {
+                              list.data![index].name) {
                             log('class');
-                            log(list!.data![index].name.toString());
-                            controller.className.value =
-                                list!.data![index].name!;
+                            log(list.data![index].name.toString());
+                            controller.classId.value = list.data![index].id!;
                           } else {
                             log('board');
-                            log(list!.data![index].name.toString());
-                            controller.boardName.value =
-                                list!.data![index].name!;
+                            log(list.data![index].name.toString());
+                            controller.boardId.value = list.data![index].id!;
                           }
                         }
                         log(selectedIndex.toString());
@@ -364,7 +404,7 @@ commonGradeGrid({
                               width: 1)),
                       alignment: Alignment.center,
                       child: TextWidget.openSansMediumText(
-                          text: list!.data![index].name,
+                          text: list.data![index].name,
                           color: ColorConst.textColor22,
                           fontSize: 18.0),
                     ),

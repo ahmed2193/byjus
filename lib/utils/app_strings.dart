@@ -2,14 +2,8 @@ class AppStrings {
   static const String appName = 'onlyedu';
   // static const String poppinsFontFamily = 'Poppins';
   static const String locale = 'locale';
-  static const String englishCode = 'en';
-  static const String arabicCode = 'ar';
-  static const String koreanCode = 'ko';
-  static const String japaneseCode = 'ja';
-  static const String mandarinCode = 'zh';
-  static const String germanCode = 'de';
-  static const String spanishCode = 'es';
-  static const String hindiCode = 'hi';
+  static const String id = 'id';
+
 
   static const String noRouteFound = 'no Route Found';
   static const String serverFailure = 'Server Failure';
@@ -34,7 +28,7 @@ class AppStrings {
   static const String cookie = 'Cookie';
   static const String apiKeyCode = 'topperAPP';
   static const String cookieCode =
-      'PHPSESSID=5cfd903f51de166c590fc52d1ee5829a';
+      '1706034600lCUVcW41wI9uG5L3MtXNdK2q1706080507';
   static const String contentType = 'Content-Type';
   static const String applicationJson = 'application/json';
   static const String bearer = 'Bearer ';
@@ -61,6 +55,13 @@ class AppStrings {
   static const String gender = "gender";
   static const String address = "address";
   static const String code = "code";
+  static const String token = "token";
+  static const String message = "message";
+  static const String subjectId = "subject_id";
+  static const String chapterId = "chapter_id";
+  static const String user = "user";
+  static const String zipCode = "zipcode";
+  static const String profileImage = "profile_image";
 
  
 

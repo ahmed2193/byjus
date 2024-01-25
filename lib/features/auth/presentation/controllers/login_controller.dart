@@ -1,11 +1,9 @@
-
 import 'package:byjus/features/auth/data/models/user_model.dart';
 import 'package:byjus/features/auth/domain/usecases/login.dart';
 import 'package:byjus/features/auth/presentation/screens/enter_otp_screen.dart';
 import 'package:byjus/utils/constants.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_udid/flutter_udid.dart';
 import 'package:get/get.dart';
 import 'package:dartz/dartz.dart';
 
@@ -26,7 +24,6 @@ class LoginController extends GetxController {
 
   void onCountryCodeChanged(CountryCode country) {
     selectedCountryCode.value = country.dialCode!;
-  
   }
 
   Future<void> login({
@@ -50,7 +47,7 @@ class LoginController extends GetxController {
           signUpType: signUpType,
           deviceToken: deviceToken),
     );
-    var deviceid = await FlutterUdid.udid;
+    // var deviceid = await FlutterUdid.udid;
     isLoading.value = false;
     response.fold(
       (failure) {
@@ -59,14 +56,13 @@ class LoginController extends GetxController {
         return errorMessage.value = failure.message!;
       },
       (response) async {
-        if (response.statusCode == StatusCode.ok &&
-            response.message==null) {
+        if (response.statusCode == StatusCode.ok && response.message == null) {
           authenticatedUser = response.data;
           Constants.showToast(message: authenticatedUser!.message!);
+          
+                    Get.to(EnterOtpScreen());
 
-          Get.to(EnterOtpScreen());
-
-      
+          
         } else {
           isError.value = true;
           errorMessage.value = response.message!;
@@ -75,6 +71,4 @@ class LoginController extends GetxController {
       },
     );
   }
-
-
 }

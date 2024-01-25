@@ -1,5 +1,5 @@
 import 'package:byjus/core/api/base_response.dart';
-import 'package:byjus/utils/usecases/usecase.dart';
+import 'package:byjus/core/usecase.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 

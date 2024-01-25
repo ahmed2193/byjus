@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 // import 'package:validators/validators.dart';
 
 mixin ValidationMixin<T extends StatefulWidget> on State<T> {
-  String? _password;
   // ignore: unused_field
   String? _newPassword;
 
@@ -56,6 +55,17 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
   String? validateLastName(String? lastName) {
     if (lastName!.trim().isEmpty) {
       return 'last_name_validation';
+    }
+    return null;
+  }
+    String? validateSchool(dynamic userName) {
+    if (userName!.trim().isEmpty) {
+      return "PLease enter your school name";
+    }
+    return null;
+  }  String? validateZipcode(dynamic userName) {
+    if (userName!.trim().isEmpty) {
+      return "PLease enter your zip code";
     }
     return null;
   }

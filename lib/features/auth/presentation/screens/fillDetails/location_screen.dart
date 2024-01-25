@@ -1,18 +1,18 @@
-import 'dart:developer';
+import 'dart:io';
 
 import 'package:byjus/constants/colors.dart';
 import 'package:byjus/constants/images.dart';
 import 'package:byjus/constants/textWidget.dart';
 import 'package:byjus/controller/fill_detail_controller.dart';
 import 'package:byjus/features/auth/presentation/controllers/register_controller.dart';
-import 'package:byjus/screen/home/home_screen.dart';
 import 'package:byjus/utils/constants.dart';
 import 'package:byjus/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../controllers/app_state.dart';
+import '../../../../../controller/image_picker.dart';
+import '../../../../../core/app_state.dart';
 import '../../controllers/login_controller.dart';
 
 class LocationScreen extends StatelessWidget {
@@ -20,7 +20,7 @@ class LocationScreen extends StatelessWidget {
       Get.put(FillDetailController());
   final RegisterController controller = Get.find();
   final LoginController loginController = Get.find();
-
+  final ProfileImageController _profileImageController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -145,7 +145,7 @@ class LocationScreen extends StatelessWidget {
                                           color: ColorConst.textColor22,
                                           fontSize: 14.0,
                                           text:
-                                              "Patel Vadi  = ${controller.streetAddress}")
+                                              "${controller.streetAddress}")
                                     ],
                                   ),
                                   SizedBox(
@@ -178,10 +178,22 @@ class LocationScreen extends StatelessWidget {
                                         context: context,
                                         deviceToken: '123sahdsahd',
                                         dviceType: 'A',
-                                        countryCode: loginController.authenticatedUser!.data!.countryCode.toString(),
-                                        phone: loginController.authenticatedUser!.data!.phone.toString(),
-                                        userId: loginController.authenticatedUser!.data!.id.toString());
-                     
+                                        countryCode: loginController
+                                            .authenticatedUser!
+                                            .data!
+                                            .countryCode
+                                            .toString(),
+                                        phone: loginController
+                                            .authenticatedUser!.data!.phone
+                                            .toString(),
+                                        userId: loginController
+                                            .authenticatedUser!.data!.id
+                                            .toString(),
+                                    profileImage:File(_profileImageController
+                                        .profileImageUrl.value)
+                                    
+                                        
+                                        );
 
                                     // Get.offAll(HomeScreen());
                                   },

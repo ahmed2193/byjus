@@ -5,6 +5,8 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 import 'package:byjus/injection_container.dart' as di;
 
+import '../../../../core/app_state.dart';
+
 class TermsAndConditionsScreen extends StatelessWidget {
    TermsAndConditionsScreen({super.key});
 

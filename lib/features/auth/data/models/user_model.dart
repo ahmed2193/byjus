@@ -27,14 +27,18 @@ class Data {
   String? countryCode;
   String? phone;
   String? token;
+  String? username;
+  String? profileImage;
 
-  Data({this.id, this.countryCode, this.phone , this.token});
+  Data({this.id, this.countryCode, this.phone , this.token  , this.username, this.profileImage});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     countryCode = json['country_code'];
     phone = json['phone'];
-    token = json['token']==null?null:json['token'];
+    token = json['token'];
+    username = json['username'];
+    profileImage = json['profile_image'];
   }
 
   Map<String, dynamic> toJson() {
@@ -43,6 +47,8 @@ class Data {
     data['country_code'] = countryCode;
     data['phone'] = phone;
     data['token'] = token;
+    data['username'] = username;
+    data['profile_image'] = profileImage;
     return data;
   }
 }

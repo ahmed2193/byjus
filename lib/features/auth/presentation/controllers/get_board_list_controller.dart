@@ -3,11 +3,11 @@ import 'dart:developer';
 import 'package:byjus/core/api/base_response.dart';
 import 'package:byjus/features/auth/data/models/board_and_class_model.dart';
 import 'package:byjus/features/auth/domain/usecases/get_board_list.dart';
-import 'package:byjus/features/auth/presentation/controllers/app_state.dart';
-import 'package:byjus/utils/usecases/usecase.dart';
-import 'package:dartz/dartz.dart';
+ import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
+import '../../../../core/app_state.dart';
 import '../../../../core/error/failures.dart';
+import '../../../../core/usecase.dart';
 
 class BoardListController extends GetxController {
   final GetBoardList useCase;

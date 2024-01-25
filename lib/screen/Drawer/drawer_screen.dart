@@ -1,9 +1,10 @@
+import 'dart:developer';
+
 import 'package:byjus/constants/colors.dart';
 import 'package:byjus/constants/images.dart';
 import 'package:byjus/constants/textWidget.dart';
 import 'package:byjus/controller/home_controller.dart';
 import 'package:byjus/features/auth/presentation/controllers/logout_controller.dart';
-import 'package:byjus/features/auth/presentation/screens/login_screen.dart';
 import 'package:byjus/screen/bookmark/bookmark_screen.dart';
 import 'package:byjus/screen/helpCenter/help_center_screen.dart';
 import 'package:byjus/screen/learningAnalysis/learning_analysis_screen.dart';
@@ -11,10 +12,15 @@ import 'package:byjus/screen/notification/notification_screen.dart';
 import 'package:byjus/screen/privacyPolicy/privacy_policy_screen.dart';
 import 'package:byjus/screen/profile/subscreen/viewAnalysis/view_analysis_screen.dart';
 import 'package:byjus/screen/termsCondition/terms_condition_screen.dart';
+import 'package:byjus/utils/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:byjus/injection_container.dart' as di;
+
+import '../../core/preferences/preferences_manager.dart';
+import '../../features/auth/data/models/user_model.dart';
+import '../../features/auth/presentation/controllers/login_controller.dart';
 
 class DrawerScreen extends StatelessWidget {
   final HomeController homeController = Get.find();
@@ -31,41 +37,58 @@ class DrawerScreen extends StatelessWidget {
               SizedBox(
                 height: 55,
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image.asset(
-                    ImageConst.drawerProfileImage,
-                    height: 50,
-                    width: 50,
-                  ),
-                  SizedBox(
-                    width: 12,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextWidget.openSansSemiBoldText(
-                          text: "John Doe",
-                          color: ColorConst.black1A,
-                          fontSize: 15.0),
-                      TextWidget.openSansMediumText(
-                          text: "JEE & NEET (11th)",
-                          color: ColorConst.grey64,
-                          fontSize: 12.0),
-                      SizedBox(
-                        height: 9,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Get.to(ViewAnalysisScreen());
-                        },
-                        child: SvgPicture.asset(ImageConst.nextArrow),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              FutureBuilder(
+                  future:
+                      di.sl<PreferencesManager>().getSavedLoginCredentials(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<UserModel?> snapshot) {
+                    var userInfo;
+                    if (snapshot.hasData && snapshot.data != null) {
+                      userInfo = snapshot.data!.data;
+                    }
+                    return snapshot.hasData && snapshot.data != null
+                        ? Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ClipOval(
+                                child: Image.network(
+                                  userInfo.profileImage!,
+                                  height: 50,
+                                  width: 50,
+                                  fit: BoxFit
+                                      .cover, // You can adjust the BoxFit based on your preference
+                                ),
+                              ),
+                              SizedBox(
+                                width: 12,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextWidget.openSansSemiBoldText(
+                                      text: userInfo!.username,
+                                      color: ColorConst.black1A,
+                                      fontSize: 15.0),
+                                  TextWidget.openSansMediumText(
+                                      text: "JEE & NEET (11th)",
+                                      color: ColorConst.grey64,
+                                      fontSize: 12.0),
+                                  SizedBox(
+                                    height: 9,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Get.to(ViewAnalysisScreen());
+                                    },
+                                    child:
+                                        SvgPicture.asset(ImageConst.nextArrow),
+                                  ),
+                                ],
+                              )
+                            ],
+                          )
+                        : SizedBox();
+                  }),
               ListView.builder(
                 shrinkWrap: true,
                 itemCount: homeController.menuList.length,
@@ -143,7 +166,6 @@ class DrawerScreen extends StatelessWidget {
                 onPressed: () {
                   final LogoutController controller =
                       Get.put(di.sl<LogoutController>());
-
                   Get.defaultDialog(
                       title: "",
                       contentPadding: EdgeInsets.zero,
@@ -166,24 +188,34 @@ class DrawerScreen extends StatelessWidget {
                             ),
                             Row(
                               children: [
-                                Expanded(
-                                  child: MaterialButton(
-                                    onPressed: () {
-                                      controller.logout(context: context);
-                                    },
-                                    height: 40,
-                                    elevation: 0,
-                                    child: TextWidget.openSansMediumText(
-                                        color: ColorConst.textColor22,
-                                        fontSize: 18.0,
-                                        text: "Yes"),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(12),
-                                        side: BorderSide(
-                                            color: ColorConst.textColor22,
-                                            width: 1)),
-                                  ),
-                                ),
+                                Obx(() {
+                                  return Expanded(
+                                    child: !controller.isLoading.value
+                                        ? MaterialButton(
+                                            onPressed: () {
+                                              controller.logout(
+                                                context: context,
+                                              );
+                                            },
+                                            height: 40,
+                                            elevation: 0,
+                                            child:
+                                                TextWidget.openSansMediumText(
+                                                    color:
+                                                        ColorConst.textColor22,
+                                                    fontSize: 18.0,
+                                                    text: "Yes"),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                side: BorderSide(
+                                                    color:
+                                                        ColorConst.textColor22,
+                                                    width: 1)),
+                                          )
+                                        : LoadingIndicator(),
+                                  );
+                                }),
                                 SizedBox(
                                   width: 22,
                                 ),

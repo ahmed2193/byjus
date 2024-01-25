@@ -19,8 +19,7 @@ class FillDetailsScreen extends StatefulWidget {
 }
 
 class _FillDetailsScreenState extends State<FillDetailsScreen> {
-  int selectedIndex = 0;
-  final PageController pageController = PageController(initialPage: 0);
+
   final List screenList = [
     RegistrationScreen(),
     SelectGradeScreen(),
@@ -28,6 +27,7 @@ class _FillDetailsScreenState extends State<FillDetailsScreen> {
   ];
 
   final RegisterController controller = Get.find();
+  // final RegisterController controller = Get.put(di.sl<RegisterController>());
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class _FillDetailsScreenState extends State<FillDetailsScreen> {
                       child: Container(
                           height: 4,
                           decoration: BoxDecoration(
-                              color: i == selectedIndex
+                              color: i == controller.selectedIndex
                                   ? ColorConst.appColor
                                   : ColorConst.greyC5,
                               borderRadius: BorderRadius.circular(5))),
@@ -63,37 +63,38 @@ class _FillDetailsScreenState extends State<FillDetailsScreen> {
           ),
           Expanded(
             child: PageView.builder(
-                controller: pageController,
+                controller: controller.pageController,
                 // physics: NeverScrollableScrollPhysics(),
                 itemCount: screenList.length,
                 onPageChanged: (i) {
                   setState(() {
-                    selectedIndex = i;
+                    controller.selectedIndex = i;
                   });
                 },
                 itemBuilder: (context, index) => screenList[index]),
           ),
-          selectedIndex == 2
+          controller.selectedIndex == 2
               ? Container()
               : MaterialButton(
                   onPressed: () {
-                    if (selectedIndex == 0) {
+                    if (controller.selectedIndex == 0) {
                       if (controller.selectedGender.isEmpty) {
                         Constants.showToast(message: 'please select a gender');
                       }
 
                       if (controller.formKey.currentState!.validate() &&
                           controller.selectedGender.isNotEmpty) {
-                        pageController.nextPage(
+                                FocusScope.of(context).unfocus();
+                        controller.pageController.nextPage(
                             duration: Duration(milliseconds: 300),
                             curve: Curves.ease);
                       }
                     } else {
-                      if (controller.className.isNotEmpty &&
-                          controller.boardName.isNotEmpty) {
-                        log(controller.className.value);
-                        log(controller.boardName.value);
-                        pageController.nextPage(
+                      if (controller.classId.isNotEmpty &&
+                          controller.boardId.isNotEmpty) {
+                        log(controller.classId.value);
+                        log(controller.boardId.value);
+                        controller.pageController.nextPage(
                             duration: Duration(milliseconds: 300),
                             curve: Curves.ease);
                       } else {
@@ -111,7 +112,7 @@ class _FillDetailsScreenState extends State<FillDetailsScreen> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(28)),
                 ),
-          selectedIndex != 2
+          controller.selectedIndex != 2
               ? SizedBox(
                   height: 50,
                 )

@@ -1,9 +1,10 @@
 import 'package:byjus/constants/colors.dart';
 import 'package:byjus/constants/images.dart';
 import 'package:byjus/constants/textWidget.dart';
-import 'package:byjus/screen/Physics/subScreen/electrictCharges/electrict_charges_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../features/subject/presentation/screens/subScreen/electrictCharges/electrict_charges_screen.dart';
 
 class StartPractice3Screen extends StatelessWidget {
   final answerList = [
@@ -13,13 +14,11 @@ class StartPractice3Screen extends StatelessWidget {
     "D.  Railways",
   ];
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: ColorConst.white,
-        body:Stack(
+        body: Stack(
           children: [
             Container(
               height: 250,
@@ -48,27 +47,30 @@ class StartPractice3Screen extends StatelessWidget {
                             )),
                         MaterialButton(
                           onPressed: () {
-                              Get.bottomSheet(
+                            Get.bottomSheet(
                                 Padding(
                                   padding: const EdgeInsets.all(24.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                       Image.asset(ImageConst.endBottomsheetImage,height: 170,width: 170,),
-                                      TextWidget.openSansBoldText(
-                                        color: ColorConst.textColor22,
-                                        text: "End practice session?",
-                                        fontSize: 20.0
+                                      Image.asset(
+                                        ImageConst.endBottomsheetImage,
+                                        height: 170,
+                                        width: 170,
                                       ),
+                                      TextWidget.openSansBoldText(
+                                          color: ColorConst.textColor22,
+                                          text: "End practice session?",
+                                          fontSize: 20.0),
                                       SizedBox(
                                         height: 8,
                                       ),
                                       TextWidget.openSansRegularText(
                                           color: ColorConst.grey64,
-                                          text: "Jone Doe, you are just 2 questions away from unlocking a new level. are you sure you want to quit?",
+                                          text:
+                                              "Jone Doe, you are just 2 questions away from unlocking a new level. are you sure you want to quit?",
                                           fontSize: 15.0,
-                                        textAlign: TextAlign.center
-                                      ),
+                                          textAlign: TextAlign.center),
                                       SizedBox(
                                         height: 20,
                                       ),
@@ -80,7 +82,7 @@ class StartPractice3Screen extends StatelessWidget {
                                         height: 47,
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
-                                            BorderRadius.circular(28)),
+                                                BorderRadius.circular(28)),
                                         color: ColorConst.appColor,
                                         child: TextWidget.openSansBoldText(
                                             text: "Resume",
@@ -90,34 +92,35 @@ class StartPractice3Screen extends StatelessWidget {
                                       SizedBox(
                                         height: 12,
                                       ),
-                                     InkWell(
-                                       onTap: (){
-                                         Get.off(ElectricChargesScreen());
-                                       },
-                                       child:  TextWidget.openSansBoldText(
-                                           text: "Quit",
-                                           color: ColorConst.textColor22,
-                                           fontSize: 16.0),
-                                     )
-
+                                      InkWell(
+                                        onTap: () {
+                                          Get.off(ChapterDetailsScreen());
+                                        },
+                                        child: TextWidget.openSansBoldText(
+                                            text: "Quit",
+                                            color: ColorConst.textColor22,
+                                            fontSize: 16.0),
+                                      )
                                     ],
                                   ),
                                 ),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(40),
-                                          topRight: Radius.circular(40))),
-                                  backgroundColor: ColorConst.white
-                              );
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(40),
+                                        topRight: Radius.circular(40))),
+                                backgroundColor: ColorConst.white);
                           },
                           height: 32,
                           color: ColorConst.white,
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(24),
-                              side: BorderSide(color: ColorConst.appColor, width: 1)),
+                              side: BorderSide(
+                                  color: ColorConst.appColor, width: 1)),
                           child: TextWidget.openSansBoldText(
-                              color: ColorConst.appColor, fontSize: 13.0, text: "End"),
+                              color: ColorConst.appColor,
+                              fontSize: 13.0,
+                              text: "End"),
                         ),
                       ],
                     ),
@@ -127,12 +130,14 @@ class StartPractice3Screen extends StatelessWidget {
                     TextWidget.openSansMediumText(
                         text: "Warmup",
                         color: ColorConst.textColor22,
-                        fontSize: 16.0
-                    ),
+                        fontSize: 16.0),
                     SizedBox(
                       height: 10,
                     ),
-                    Image.asset(ImageConst.startPracticeImage3,height: 22,)
+                    Image.asset(
+                      ImageConst.startPracticeImage3,
+                      height: 22,
+                    )
                   ],
                 ),
               ),
@@ -151,8 +156,9 @@ class StartPractice3Screen extends StatelessWidget {
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(40),
                           topRight: Radius.circular(40))),
-                  child:  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0,vertical: 20),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24.0, vertical: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -169,7 +175,7 @@ class StartPractice3Screen extends StatelessWidget {
                         TextWidget.openSansSemiBoldText(
                             color: ColorConst.textColor22,
                             text:
-                            "Which of following is the fastest means of transportation?",
+                                "Which of following is the fastest means of transportation?",
                             fontSize: 18.0),
                         SizedBox(
                           height: 26,
@@ -183,16 +189,16 @@ class StartPractice3Screen extends StatelessWidget {
                             itemBuilder: (context, index) => Padding(
                               padding: const EdgeInsets.only(bottom: 16.0),
                               child: InkWell(
-                                onTap: () {
-
-                                },
+                                onTap: () {},
                                 child: Container(
                                   height: 60,
                                   decoration: BoxDecoration(
                                       color: ColorConst.white,
                                       borderRadius: BorderRadius.circular(40),
-                                      border:  Border.all(
-                                          color: index==2?ColorConst.green00C:ColorConst.greyE4)),
+                                      border: Border.all(
+                                          color: index == 2
+                                              ? ColorConst.green00C
+                                              : ColorConst.greyE4)),
                                   alignment: Alignment.centerLeft,
                                   padding: EdgeInsets.only(left: 18),
                                   child: TextWidget.openSansMediumText(
@@ -212,8 +218,7 @@ class StartPractice3Screen extends StatelessWidget {
                             minWidth: 170,
                             height: 47,
                             shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(28)),
+                                borderRadius: BorderRadius.circular(28)),
                             color: ColorConst.appColor,
                             child: TextWidget.openSansBoldText(
                                 text: "Next",
@@ -227,14 +232,10 @@ class StartPractice3Screen extends StatelessWidget {
                       ],
                     ),
                   ),
-
                 ),
               ),
             )
           ],
-        )
-
-
-    );
+        ));
   }
 }

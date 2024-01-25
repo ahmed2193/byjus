@@ -1,9 +1,9 @@
 import 'package:byjus/core/api/base_response.dart';
+import 'package:byjus/core/usecase.dart';
 import 'package:byjus/features/auth/data/models/board_and_class_model.dart';
-import 'package:byjus/features/auth/presentation/controllers/app_state.dart';
-import 'package:byjus/utils/usecases/usecase.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
+import '../../../../core/app_state.dart';
 import '../../../../core/error/failures.dart';
 import '../../domain/usecases/get_class_list.dart';
 

@@ -21,6 +21,9 @@ class PreferencesUtils {
     return (await getSharePref()).setBool(key, data);
   }
 
+  static Future<Object?> getObject(String key) async {
+    return (await getSharePref()).getString(key);
+  }
   static Future<String?> getString(String key) async {
     return (await getSharePref()).getString(key);
   }

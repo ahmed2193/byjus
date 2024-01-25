@@ -90,17 +90,17 @@ class Constants {
       textColor: Colors.white,
     );
   }
-  static Future<void> showLogoutDialog(BuildContext context) async {
-     final LogoutController controller = g.Get.find();
+  // static Future<void> showLogoutDialog(BuildContext context) async {
+  //    final LogoutController controller = g.Get.find();
 
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) => ConfirmationDialog(
-        alertMsg: "Do you want to logout ?",
-        onTapConfirm: () => controller.logout(context: context),
-      ),
-    );
-  }
+  //   return showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) => ConfirmationDialog(
+  //       alertMsg: "Do you want to logout ?",
+  //       onTapConfirm: () => controller.logout(context: context),
+  //     ),
+  //   );
+  // }
   static dynamic decodeJson(Response<dynamic> response) {
     final responseJson = jsonDecode(response.data.toString());
     return responseJson;

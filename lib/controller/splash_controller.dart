@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'package:byjus/core/preferences/preferences_manager.dart';
 import 'package:byjus/features/auth/presentation/screens/login_screen.dart';
+import 'package:byjus/features/home/presentation/screens/home_screen.dart';
 import 'package:byjus/screen/Welcome/welcome_screen.dart';
-import 'package:byjus/screen/home/home_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:byjus/injection_container.dart' as di;
 

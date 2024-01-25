@@ -1,4 +1,6 @@
-import 'package:byjus/utils/usecases/usecase.dart';
+import 'dart:io';
+
+import 'package:byjus/core/usecase.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import '../../../../core/api/base_response.dart';
@@ -29,8 +31,10 @@ class RegisterParams extends Equatable {
   final String gender;
   final String address;
   final String userId;
+   File? profileImage;
+  final String zipcode;
 
-  const RegisterParams({
+   RegisterParams({
     required this.username,
     required this.countryCode,
     required this.phone,
@@ -44,6 +48,8 @@ class RegisterParams extends Equatable {
     required this.gender,
     required this.address,
     required this.userId,
+    required this.zipcode,
+     this.profileImage,
   });
 
   @override
@@ -61,5 +67,7 @@ class RegisterParams extends Equatable {
         gender,
         address,
         userId,
+        zipcode,
+profileImage,
       ];
 }

@@ -1,11 +1,11 @@
+import 'dart:io';
+
 import 'package:byjus/core/api/base_response.dart';
 import 'package:byjus/core/api/status_code.dart';
 import 'package:byjus/core/preferences/preferences_manager.dart';
 import 'package:byjus/features/auth/data/models/user_model.dart';
 import 'package:byjus/features/auth/domain/usecases/register.dart';
-import 'package:byjus/features/auth/presentation/controllers/app_state.dart';
-import 'package:byjus/features/auth/presentation/screens/fillDetails/registration_screen.dart';
-import 'package:byjus/screen/home/home_screen.dart';
+import 'package:byjus/features/home/presentation/screens/home_screen.dart';
 import 'package:byjus/utils/constants.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -15,23 +15,29 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../../../core/app_state.dart';
 import '../../../../core/error/failures.dart';
 import 'package:byjus/injection_container.dart' as di;
 
 class RegisterController extends GetxController {
   final Register registerUseCase;
-  RegisterController(
-      {required this.registerUseCase,});
+  RegisterController({
+    required this.registerUseCase,
+  });
   var state = ApiState.initial.obs; // Default to loading state
   RxBool isLoading = false.obs;
   RxBool isError = false.obs;
   RxString errorMessage = ''.obs;
+  int selectedIndex = 0;
+  final PageController pageController = PageController(initialPage: 0);
   UserModel? authenticatedUser;
   final formKey = GlobalKey<FormState>();
   final TextEditingController useNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  RxString className = ''.obs;
-  RxString boardName = ''.obs;
+  final TextEditingController zipCodeController = TextEditingController();
+  final TextEditingController schoolNameController = TextEditingController();
+  RxString classId = ''.obs;
+  RxString boardId = ''.obs;
   var selectedGender = ''.obs;
   var latitude = 0.0.obs;
   var longitude = 0.0.obs;
@@ -55,7 +61,7 @@ class RegisterController extends GetxController {
         List<Placemark> placemarks =
             await placemarkFromCoordinates(latitude.value, longitude.value);
 
-        if (placemarks != null && placemarks.isNotEmpty) {
+        if (placemarks.isNotEmpty) {
           Placemark place = placemarks.first;
           streetAddress.value = '${place.administrativeArea} ${place.country}';
           detailedAddress.value =
@@ -86,6 +92,7 @@ class RegisterController extends GetxController {
     required String userId,
     required String deviceToken,
     required BuildContext context,
+    File? profileImage
   }) async {
     isError.value = false;
     isLoading.value = true;
@@ -99,14 +106,18 @@ class RegisterController extends GetxController {
           deviceToken: deviceToken,
           username: useNameController.text,
           latitude: latitude.value.toString(),
-          longitude: longitude.toString(),
+          longitude: longitude.value.toString(),
           deviceType: dviceType,
-          board: boardName.value,
-          classValue: className.value,
-          schoolName: 'test',
+          board: boardId.value,
+          classValue: classId.value,
+          schoolName:schoolNameController.text,
           gender: selectedGender.value.toString(),
           address: streetAddress.value.toString(),
-          userId: userId),
+          userId: userId,
+          zipcode: zipCodeController.text,
+          profileImage: profileImage
+          
+          ),
     );
     // var deviceid = await FlutterUdid.udid;
     isLoading.value = false;
@@ -118,10 +129,24 @@ class RegisterController extends GetxController {
       },
       (response) async {
         if (response.statusCode == StatusCode.ok && response.message == null) {
+          useNameController.clear();
+          emailController.clear();
+          selectedGender = ''.obs;
+          longitude.value = 0.0;
+          longitude.value = 0.0;
+          boardId.value = '';
+          classId.value = '';
+          selectedGender.value = '';
+          streetAddress.value = '';
+
           authenticatedUser = response.data;
           Constants.showToast(message: authenticatedUser!.message!);
-          await di.sl<PreferencesManager>()
+          await di
+              .sl<PreferencesManager>()
               .setAccessToken(authenticatedUser!.data!.token!);
+          await di
+              .sl<PreferencesManager>()
+              .saveLoginCredentials(userModel: authenticatedUser!);
           Get.offAll(HomeScreen());
         } else {
           isError.value = true;

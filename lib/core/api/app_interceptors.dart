@@ -1,6 +1,9 @@
+
+import 'package:byjus/core/preferences/preferences_manager.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import '../../utils/app_strings.dart';
+import 'package:byjus/injection_container.dart' as di;
 
 class AppIntercepters extends Interceptor {
   // final LangLocalDataSource langLocalDataSource;
@@ -13,13 +16,16 @@ class AppIntercepters extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
+    var token = await di.sl<PreferencesManager>().getAccessToken();
     options.headers[AppStrings.contentType] = AppStrings.applicationJson;
     options.headers[AppStrings.xRequested] = AppStrings.xmlHttpRequest;
     options.headers[AppStrings.cookie] = AppStrings.cookieCode;
     options.headers[AppStrings.apiKey] = AppStrings.apiKeyCode;
+    token != null || token != ""
+        ? options.headers[AppStrings.token] = token
+        : null;
 
-    // final String lang = await langLocalDataSource.getSavedLang();
-    // options.headers['en'] = lang;
+
     super.onRequest(options, handler);
   }
 

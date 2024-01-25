@@ -7,6 +7,7 @@ import 'package:byjus/features/auth/domain/usecases/otp_verify.dart';
 import 'package:byjus/features/auth/domain/usecases/register.dart';
 import 'package:byjus/utils/app_strings.dart';
 import 'package:byjus/utils/constants.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../core/api/api_consumer.dart';
@@ -30,7 +31,9 @@ abstract class AuthRemoteDataSource {
 
   Future<BaseResponse> getBoardList();
   Future<BaseResponse> getClassList();
-  Future<bool> logout();
+  Future<bool> logout({
+    required int id,
+  });
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -111,6 +114,13 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       AppStrings.gender: params.gender,
       AppStrings.address: params.address,
       AppStrings.deviceType: params.deviceToken,
+      AppStrings.zipCode: params.zipcode,
+          if (params.profileImage != null) ...{
+          AppStrings.profileImage: await MultipartFile.fromFile(
+              params.profileImage!.absolute.path)
+        }
+
+
     };
     print(body);
     final response = await apiConsumer.post(EndPoints.signup,
@@ -170,9 +180,25 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<bool> logout() async {
-    final prefs = di.sl<PreferencesManager>();
-    await prefs.clearToken();
-    return true;
+  Future<bool> logout({
+    required int id,
+  }) async {
+    final response = await apiConsumer.get(EndPoints.logout+id.toString(),
+        );
+
+    final BaseResponse baseResponse =
+        BaseResponse(statusCode: response.statusCode);
+    final responseJson = Constants.decodeJson(response);
+
+    if (response.statusCode == StatusCode.ok &&
+        responseJson[AppStrings.code] == '1') {
+      final prefs = di.sl<PreferencesManager>();
+      await prefs.clearToken();
+      await prefs.logout();
+      return true;
+    } else {
+      baseResponse.message = responseJson[AppStrings.message];
+      return false;
+    }
   }
 }
