@@ -34,7 +34,7 @@ class LogoutController extends GetxController {
     }, (response) {
       Get.offAll(LoginScreen());
 
-      logoutUseCase.call(int.parse(userInfo!.data!.id!));
+      logoutUseCase.call(int.parse(userInfo.data!.id!));
     });
   }
 }

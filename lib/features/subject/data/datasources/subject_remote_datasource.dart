@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:byjus/core/api/api_consumer.dart';
 import 'package:byjus/core/api/base_response.dart';
 import 'package:byjus/core/api/end_points.dart';
@@ -46,13 +48,17 @@ class SubjectRemoteDataSourceImpl extends BaseSubjectRemoteDataSource {
   }) async {
     final response = await apiConsumer.post(EndPoints.chapterDetails,
         formDataIsEnabled: true, body: {AppStrings.chapterId: id});
-
+  log('responseJson[AppStrings.code]'*10);
     final BaseResponse baseResponse =
         BaseResponse(statusCode: response.statusCode);
     final responseJson = Constants.decodeJson(response);
-
+//   log(responseJson ==null?'responseJson[AppStrings.code1]'*10:'responseJson[AppStrings.code44]'*10);
+ 
+//  log(responseJson);
     if (response.statusCode == StatusCode.ok &&
         responseJson[AppStrings.code] == '1') {
+      log(responseJson[AppStrings.code]);
+      log(responseJson);
       baseResponse.data = SubjectChapterModel.fromJson(responseJson);
     } else {
       baseResponse.message = responseJson[AppStrings.message];

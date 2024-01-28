@@ -62,8 +62,8 @@ class ViewAnalysisScreen extends StatelessWidget {
                                    CachedNetworkImage(
                       imageUrl: userInfo.profileImage!,
                       fit: BoxFit.cover,
-                        height: 88,
-                                    width: 88,
+                        height: 80,
+                                    width: 80,
 
                       placeholder: (context, url) => LoadingImageIndicator(),
                       errorWidget: (context, url, error) =>
@@ -72,31 +72,35 @@ class ViewAnalysisScreen extends StatelessWidget {
                                 
                                 
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    userInfo.username!,
-                                    style: TextStyle(
-                                        fontSize: 24.0,
-                                        color: ColorConst.textColor22,
-                                        fontWeight: FontWeight.w700,
-                                        fontFamily: robotoMediumFont),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    userInfo.schoolName == null
-                                        ? ''
-                                        : userInfo.schoolName!,
-                                    style: TextStyle(
-                                        fontSize: 14.0,
-                                        color: ColorConst.grey64,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: robotoMediumFont),
-                                  ),
-                                ],
+                              Expanded(
+                                flex: 2,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      userInfo.username!,
+                                      style: TextStyle(
+                                          fontSize: 18.0,
+                                          color: ColorConst.textColor22,
+                                          overflow: TextOverflow.clip,
+                                          fontWeight: FontWeight.w700,
+                                          fontFamily: robotoMediumFont),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      userInfo.schoolName == null
+                                          ? ''
+                                          : userInfo.schoolName!,
+                                      style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: ColorConst.grey64,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: robotoMediumFont),
+                                    ),
+                                  ],
+                                ),
                               ),
                               MaterialButton(
                                 onPressed: () {

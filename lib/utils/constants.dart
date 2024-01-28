@@ -1,14 +1,11 @@
 import 'dart:convert';
 
 import 'package:byjus/core/error/failures.dart';
-import 'package:byjus/utils/dialogs/confirmation_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart'as g;
 
-import '../features/auth/presentation/controllers/logout_controller.dart';
 import 'app_strings.dart';
 
 // ignore: avoid_classes_with_only_static_members

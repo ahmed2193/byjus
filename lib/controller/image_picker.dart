@@ -5,8 +5,8 @@ class ProfileImageController extends GetxController {
   RxString profileImageUrl = ''.obs;
 
   Future<void> pickImage() async {
-    final ImagePicker _imagePicker = ImagePicker();
-    final XFile? pickedFile = await _imagePicker.pickImage(source: ImageSource.gallery);
+    final ImagePicker imagePicker = ImagePicker();
+    final XFile? pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
     
     if (pickedFile != null) {
       profileImageUrl.value = pickedFile.path;

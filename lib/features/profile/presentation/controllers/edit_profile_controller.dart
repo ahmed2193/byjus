@@ -3,10 +3,8 @@ import 'dart:io';
 
 import 'package:byjus/core/api/base_response.dart';
 import 'package:byjus/core/api/status_code.dart';
-import 'package:byjus/core/preferences/preferences_manager.dart';
 import 'package:byjus/features/auth/data/models/user_model.dart';
 import 'package:byjus/features/auth/presentation/controllers/user_info_controller.dart';
-import 'package:byjus/features/home/presentation/screens/home_screen.dart';
 import 'package:byjus/utils/constants.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +13,6 @@ import 'package:get/get.dart';
 
 import '../../../../core/app_state.dart';
 import '../../../../core/error/failures.dart';
-import 'package:byjus/injection_container.dart' as di;
 
 import '../../domain/usecases/edit_profile.dart';
 
@@ -28,7 +25,7 @@ class EditProfileController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isError = false.obs;
   RxString errorMessage = ''.obs;
-  int selectedIndex = 0;
+  int? selectedIndex;
   UserModel? userModel;
   final formKey = GlobalKey<FormState>();
 
@@ -51,10 +48,11 @@ class EditProfileController extends GetxController {
 
   var selectedGender = ''.obs;
 
-  var streetAddress = "".obs;
   @override
   void onInit() {
     var userInfo = userInfoController.userInfo.value!.data!;
+    log('userInfo.address!');
+    log(userInfo.address!);
     userId = userInfo.id;
     countryCode = userInfo.countryCode;
     nameController.text = userInfo.username!;
@@ -69,7 +67,9 @@ class EditProfileController extends GetxController {
 
     dateController.text = userInfo.birthDate!;
     log(userInfo.gender!);
-    userInfo.gender!.contains('male') ? selectedIndex = 0 : selectedIndex = 1;
+    userInfo.gender!.contains('Male')
+        ? selectedGender.value = 'Male'
+        : selectedGender.value = 'Female';
     super.onInit();
   }
 
@@ -78,10 +78,7 @@ class EditProfileController extends GetxController {
   }
 
   Future<void> editProfile(
-      {
-        
-      required BuildContext context,
-      File? profileImage}) async {
+      {required BuildContext context, File? profileImage}) async {
     isError.value = false;
     isLoading.value = true;
 
@@ -93,7 +90,7 @@ class EditProfileController extends GetxController {
           username: nameController.text,
           schoolName: genderController.text,
           gender: selectedGender.value.toString(),
-          address: streetAddress.value.toString(),
+          address: addressController.text,
           userId: userId!,
           profileImage: profileImage,
           email: emailController.text),
@@ -108,21 +105,10 @@ class EditProfileController extends GetxController {
       },
       (response) async {
         if (response.statusCode == StatusCode.ok && response.message == null) {
-          // useNameController.clear();
-          // emailController.clear();
-          // selectedGender = ''.obs;
-          // longitude.value = 0.0;
-          // longitude.value = 0.0;
-          // boardId.value = '';
-          // classId.value = '';
-          // selectedGender.value = '';
-          // streetAddress.value = '';
-
           userModel = response.data;
           Constants.showToast(message: userModel!.message!);
 
-          await userInfoController.upateCredentials(
-              userModel: userModel!);
+          await userInfoController.upateCredentials(userModel: userModel!);
         } else {
           isError.value = true;
           errorMessage.value = response.message!;

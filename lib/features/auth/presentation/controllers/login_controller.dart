@@ -1,6 +1,9 @@
+import 'package:byjus/controller/image_picker.dart';
 import 'package:byjus/features/auth/data/models/user_model.dart';
 import 'package:byjus/features/auth/domain/usecases/login.dart';
+import 'package:byjus/features/auth/presentation/controllers/register_controller.dart';
 import 'package:byjus/features/auth/presentation/screens/enter_otp_screen.dart';
+import 'package:byjus/features/auth/presentation/screens/fillDetails/fill_details_screen.dart';
 import 'package:byjus/utils/constants.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,6 +13,7 @@ import 'package:dartz/dartz.dart';
 import '../../../../../core/api/base_response.dart';
 import '../../../../../core/api/status_code.dart';
 import '../../../../../core/error/failures.dart';
+import 'package:byjus/injection_container.dart' as di;
 
 class LoginController extends GetxController {
   final Login loginUseCase;
@@ -59,10 +63,16 @@ class LoginController extends GetxController {
         if (response.statusCode == StatusCode.ok && response.message == null) {
           authenticatedUser = response.data;
           Constants.showToast(message: authenticatedUser!.message!);
-          
-                    Get.to(EnterOtpScreen());
-
-          
+          if (authenticatedUser!.code == '5') {
+            Get.put(
+              di.sl<RegisterController>(),
+            );
+            Get.put(ProfileImageController());
+            // permanent: true
+            Get.to(FillDetailsScreen());
+          } else {
+            Get.to(EnterOtpScreen());
+          }
         } else {
           isError.value = true;
           errorMessage.value = response.message!;

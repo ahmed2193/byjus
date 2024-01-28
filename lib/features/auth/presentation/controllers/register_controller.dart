@@ -2,11 +2,10 @@ import 'dart:io';
 
 import 'package:byjus/core/api/base_response.dart';
 import 'package:byjus/core/api/status_code.dart';
-import 'package:byjus/core/preferences/preferences_manager.dart';
 import 'package:byjus/features/auth/data/models/user_model.dart';
 import 'package:byjus/features/auth/domain/usecases/register.dart';
 import 'package:byjus/features/auth/presentation/controllers/user_info_controller.dart';
-import 'package:byjus/features/home/presentation/screens/home_screen.dart';
+import 'package:byjus/features/auth/presentation/screens/enter_otp_screen.dart';
 import 'package:byjus/utils/constants.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +17,6 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../core/app_state.dart';
 import '../../../../core/error/failures.dart';
-import 'package:byjus/injection_container.dart' as di;
 
 class RegisterController extends GetxController {
   final Register registerUseCase;
@@ -131,24 +129,19 @@ class RegisterController extends GetxController {
       },
       (response) async {
         if (response.statusCode == StatusCode.ok && response.message == null) {
-          useNameController.clear();
-          emailController.clear();
-          selectedGender = ''.obs;
-          longitude.value = 0.0;
-          longitude.value = 0.0;
-          boardId.value = '';
-          classId.value = '';
-          selectedGender.value = '';
-          streetAddress.value = '';
+          // useNameController.clear();
+          // emailController.clear();
+          // selectedGender = ''.obs;
+          // longitude.value = 0.0;
+          // longitude.value = 0.0;
+          // boardId.value = '';
+          // classId.value = '';
+          // selectedGender.value = '';
+          // streetAddress.value = '';
 
           authenticatedUser = response.data;
           Constants.showToast(message: authenticatedUser!.message!);
-          await di
-              .sl<PreferencesManager>()
-              .setAccessToken(authenticatedUser!.data!.token!);
-          await userInfoController.saveLoginCredentials(
-              userModel: authenticatedUser!);
-          Get.offAll(HomeScreen());
+        Get.to(EnterOtpScreen());
         } else {
           isError.value = true;
           errorMessage.value = response.message!;

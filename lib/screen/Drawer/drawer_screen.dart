@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:byjus/constants/colors.dart';
 import 'package:byjus/constants/images.dart';
@@ -67,7 +66,7 @@ class DrawerScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextWidget.openSansSemiBoldText(
-                                text: userInfo!.username,
+                                text: userInfo.username,
                                 color: ColorConst.black1A,
                                 fontSize: 15.0),
                             TextWidget.openSansMediumText(

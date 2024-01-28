@@ -1,10 +1,8 @@
-import 'package:byjus/controller/image_picker.dart';
 import 'package:byjus/core/preferences/preferences_manager.dart';
 import 'package:byjus/features/auth/data/models/user_model.dart';
 import 'package:byjus/features/auth/domain/usecases/otp_verify.dart';
 import 'package:byjus/features/auth/presentation/controllers/login_controller.dart';
 import 'package:byjus/features/auth/presentation/controllers/user_info_controller.dart';
-import 'package:byjus/features/auth/presentation/screens/fillDetails/fill_details_screen.dart';
 import 'package:byjus/features/home/presentation/screens/home_screen.dart';
 import 'package:byjus/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,7 +14,6 @@ import '../../../../../core/api/status_code.dart';
 import '../../../../../core/error/failures.dart';
 import 'package:byjus/injection_container.dart' as di;
 
-import 'register_controller.dart';
 
 class OtpVerifyController extends GetxController {
   final OtpVerify otpVerifyUseCase;
@@ -55,22 +52,12 @@ class OtpVerifyController extends GetxController {
           authenticatedUser = response.data;
           Constants.showToast(message: authenticatedUser!.message!);
 
-          if (loginController.authenticatedUser!.code == '4' ||
-              loginController.authenticatedUser!.code == '1') {
-            await di
-                .sl<PreferencesManager>()
-                .setAccessToken(authenticatedUser!.data!.token!);
-            await userInfoController
-                .saveLoginCredentials(userModel: authenticatedUser!);
-            Get.to(HomeScreen());
-          } else {
-            Get.put(
-              di.sl<RegisterController>(),
-            );
-            Get.put(ProfileImageController());
-            // permanent: true
-            Get.to(FillDetailsScreen());
-          }
+          await di
+              .sl<PreferencesManager>()
+              .setAccessToken(authenticatedUser!.data!.token!);
+          await userInfoController.saveLoginCredentials(
+              userModel: authenticatedUser!);
+          Get.to(HomeScreen());
         } else {
           isError.value = true;
           errorMessage.value = response.message!;

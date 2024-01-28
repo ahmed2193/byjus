@@ -6,7 +6,6 @@ import 'package:byjus/constants/images.dart';
 import 'package:byjus/constants/textWidget.dart';
 import 'package:byjus/controller/image_picker.dart';
 import 'package:byjus/core/app_state.dart';
-import 'package:byjus/features/profile/presentation/screens/profile_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:flutter/material.dart';
@@ -17,7 +16,6 @@ import '../../../../../../utils/loading_indicator.dart';
 import '../../../../../auth/presentation/controllers/user_info_controller.dart';
 import '../../../controllers/edit_profile_controller.dart';
 import '../../profile_utills.dart';
-import '../addPhoto/add_photo_screen.dart';
 import '../selectcity/select_city_screen.dart';
 
 import 'package:byjus/injection_container.dart' as di;

@@ -2,8 +2,6 @@ import 'package:byjus/constants/colors.dart';
 import 'package:byjus/constants/images.dart';
 import 'package:byjus/constants/textWidget.dart';
 import 'package:byjus/controller/home_controller.dart';
-import 'package:byjus/core/preferences/preferences_manager.dart';
-import 'package:byjus/features/auth/data/models/user_model.dart';
 import 'package:byjus/features/auth/presentation/controllers/user_info_controller.dart';
 import 'package:byjus/features/home/presentation/controllers/get_subject_controller.dart';
 import 'package:byjus/screen/Drawer/drawer_screen.dart';
@@ -31,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   initState() {
     super.initState();
-    userInfoController.getSavedLoginCredentials();
+   userInfoController.userInfo.value==null? userInfoController.getSavedLoginCredentials():null;
     // modalBottomSheetMenu(context);
   }
 

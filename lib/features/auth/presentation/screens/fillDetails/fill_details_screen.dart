@@ -9,7 +9,6 @@ import 'package:byjus/screen/auth/fillDetails/select_grade_screen.dart';
 import 'package:byjus/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:byjus/injection_container.dart' as di;
 
 class FillDetailsScreen extends StatefulWidget {
   const FillDetailsScreen({super.key});
