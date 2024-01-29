@@ -93,8 +93,7 @@ class _ChapterDetailsScreenState extends State<ChapterDetailsScreen> {
               // LoadingIndicator();
             } else if (chapterDetailsController.apiState.value ==
                 ApiState.success) {
-              var subjectChapterList =
-                  chapterDetailsController.subjectChapterData;
+
               return Expanded(
                 child: TabBarView(
                   controller: physicsController.controller,

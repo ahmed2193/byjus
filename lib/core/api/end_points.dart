@@ -11,4 +11,6 @@ class EndPoints {
   static const String subjectChapter = "main/getsubjectchapter_list";
   static const String chapterDetails = "main/getchapter_details";
   static const String editProfile = "user/edit";
+  static const String contactUs = "service/contact_us";
+  static const String privacypolicy = "service/privacypolicy_detial";
 }

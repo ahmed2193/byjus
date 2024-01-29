@@ -9,28 +9,7 @@ import 'package:byjus/injection_container.dart' as di;
 import '../../core/app_state.dart';
 
 class TermsConditionScreen extends StatelessWidget {
-  final List<Map> termsList = [
-    {
-      "text": "1 . Terms",
-      "subText":
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indu stry's standard dummy text ever since the1500s, whe an unknown printer took a galley of type and sc rambled it to make a type"
-    },
-    {
-      "text": "2 . User Account",
-      "subText":
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indu stry's standard dummy text ever since the1500s, whe an unknown printer took a galley of type and sc rambled it to make a type"
-    },
-    {
-      "text": "3 . Your Content",
-      "subText":
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indu stry's standard dummy text ever since the1500s, whe an unknown printer took a galley of type and sc rambled it to make a type"
-    },
-    {
-      "text": "4. Using Our Site",
-      "subText":
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    },
-  ];
+
   final TermsAndConditionsController termsAndConditionsController =
       Get.put(di.sl<TermsAndConditionsController>());
 

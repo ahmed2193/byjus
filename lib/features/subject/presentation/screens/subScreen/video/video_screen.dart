@@ -59,10 +59,8 @@ class _VideoScreenState extends State<VideoScreen> {
       videoPlayerController: _videoPlayerController,
       autoPlay: true,
       looping: true,
-            aspectRatio: aspectRatio,
-      // progressIndicatorDelay:
-      //     bufferDelay != null ? Duration(milliseconds: bufferDelay!) : null,
-      hideControlsTimer: const Duration(seconds: 1),
+      aspectRatio: aspectRatio,
+    
     );
   }
 
@@ -78,7 +76,8 @@ class _VideoScreenState extends State<VideoScreen> {
     _chewieController?.dispose();
     super.dispose();
   }
- void _calculateAspectRatio() {
+
+  void _calculateAspectRatio() {
     // Check if the video player is initialized and has the video size
     if (_videoPlayerController.value.isInitialized) {
       // Obtain the original video size
@@ -105,7 +104,7 @@ class _VideoScreenState extends State<VideoScreen> {
       body: Stack(
         children: [
           SizedBox(
-            height: 300,
+            height: 280,
             child: Center(
               child: _chewieController != null &&
                       _chewieController!
@@ -159,27 +158,21 @@ class _VideoScreenState extends State<VideoScreen> {
           //     ),
           //   ),
           // ),
-Positioned(
-  top: 45,
-  left: 20,
-  child: 
-               InkWell(
-
-   onTap: () {
-                            Get.back();
-                          },
-                          child: Icon(
-                            Icons.arrow_back_outlined,
-                            color: ColorConst.white,
-                          )),
-
-               ),
-
-
-
-
+          Positioned(
+            top: 45,
+            left: 20,
+            child: InkWell(
+                onTap: () {
+                  Get.back();
+                },
+                child: Icon(
+                  Icons.arrow_back_outlined,
+                  color: ColorConst.white,
+                )),
+          ),
+      
           Padding(
-            padding: const EdgeInsets.only(top: 330.0),
+            padding: const EdgeInsets.only(top: 290.0),
             child: Container(
               decoration: BoxDecoration(
                   color: ColorConst.white,
@@ -245,52 +238,54 @@ Positioned(
                         text: "Videos",
                         color: ColorConst.appColor,
                         fontSize: 18.0),
-                    ListView.builder(
-                      itemCount: videoList.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.only(bottom: 12.0),
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              videoList[index]["image"],
-                              height: 55,
-                              width: 96,
-                            ),
-                            SizedBox(
-                              width: 12,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                TextWidget.openSansSemiBoldText(
-                                    text: videoList[index]["text"],
-                                    color: ColorConst.textColor22,
-                                    fontSize: 15.0),
-                                Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                      ImageConst.clockIcon,
-                                      height: 10,
-                                      width: 10,
-                                      color: ColorConst.grey8f,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    TextWidget.openSansRegularText(
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: videoList.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.only(bottom: 12.0),
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                videoList[index]["image"],
+                                height: 55,
+                                width: 96,
+                              ),
+                              SizedBox(
+                                width: 12,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextWidget.openSansSemiBoldText(
+                                      text: videoList[index]["text"],
+                                      color: ColorConst.textColor22,
+                                      fontSize: 15.0),
+                                  Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                        ImageConst.clockIcon,
+                                        height: 10,
+                                        width: 10,
                                         color: ColorConst.grey8f,
-                                        text: videoList[index]["subText"],
-                                        fontSize: 12.0),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Spacer(),
-                            videoList[index]['icon'] == ""
-                                ? Container()
-                                : SvgPicture.asset(videoList[index]['icon'])
-                          ],
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      TextWidget.openSansRegularText(
+                                          color: ColorConst.grey8f,
+                                          text: videoList[index]["subText"],
+                                          fontSize: 12.0),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Spacer(),
+                              videoList[index]['icon'] == ""
+                                  ? Container()
+                                  : SvgPicture.asset(videoList[index]['icon'])
+                            ],
+                          ),
                         ),
                       ),
                     )
@@ -299,6 +294,43 @@ Positioned(
               ),
             ),
           )
+        ],
+      ),
+    );
+  }
+}
+
+
+
+// class CustomChewieControls extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return ChewieControls(
+//       backgroundColor: Colors.transparent, // Make controls background transparent
+//       overlay: CustomChewieOverlay(),
+//     );
+//   }
+// }
+
+class CustomChewieOverlay extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              // Handle settings button press
+              // You can show a settings dialog or navigate to a settings screen
+              print('Settings button pressed');
+            },
+          ),
+          Text(
+            'Custom Overlay',
+            style: TextStyle(fontSize: 16),
+          ),
         ],
       ),
     );

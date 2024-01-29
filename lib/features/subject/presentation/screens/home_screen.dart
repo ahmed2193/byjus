@@ -4,7 +4,7 @@ import 'package:byjus/constants/textWidget.dart';
 import 'package:byjus/controller/home_controller.dart';
 import 'package:byjus/features/home/presentation/controllers/get_subject_controller.dart';
 import 'package:byjus/features/subject/presentation/screens/subject_screen.dart';
-import 'package:byjus/screen/Drawer/drawer_screen.dart';
+import 'package:byjus/features/Drawer/drawer_screen.dart';
 import 'package:byjus/utils/loading_indicator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';

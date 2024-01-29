@@ -52,9 +52,9 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
     return null;
   }
 
-  String? validateLastName(String? lastName) {
+  String? validateFeedback(dynamic lastName) {
     if (lastName!.trim().isEmpty) {
-      return 'last_name_validation';
+      return 'PLease enter feedback here';
     }
     return null;
   }

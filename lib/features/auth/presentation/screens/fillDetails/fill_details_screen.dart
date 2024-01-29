@@ -5,7 +5,7 @@ import 'package:byjus/constants/textWidget.dart';
 import 'package:byjus/features/auth/presentation/controllers/register_controller.dart';
 import 'package:byjus/features/auth/presentation/screens/fillDetails/location_screen.dart';
 import 'package:byjus/features/auth/presentation/screens/fillDetails/registration_screen.dart';
-import 'package:byjus/screen/auth/fillDetails/select_grade_screen.dart';
+import 'package:byjus/features/auth/presentation/screens/fillDetails/select_grade_screen.dart';
 import 'package:byjus/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

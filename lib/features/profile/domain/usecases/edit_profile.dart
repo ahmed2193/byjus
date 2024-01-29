@@ -26,7 +26,7 @@ class EditProfileParams extends Equatable {
   final String address;
   final String userId;
   final String email;
-  File? profileImage;
+  final File? profileImage;
 
   EditProfileParams({
     required this.username,

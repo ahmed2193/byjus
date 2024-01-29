@@ -62,4 +62,7 @@ class AppStrings {
   static const String zipCode = "zipcode";
   static const String profileImage = "profile_image";
   static const String email = "email";
+  static const String userType = "user_type";
+  static const String title = "title";
+  static const String description = "description";
 }

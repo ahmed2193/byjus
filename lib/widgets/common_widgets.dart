@@ -22,7 +22,7 @@ class CommonDetailScreenTextField extends StatelessWidget {
   final TextEditingController? textEditingController;
   final String? Function(dynamic)? validationFunction;
   final ValueChanged<String>? onFieldSubmitted;
-    final TextInputAction? textInputAction;
+  final TextInputAction? textInputAction;
   final TextInputType? keyboardType;
 
   CommonDetailScreenTextField({
@@ -33,8 +33,8 @@ class CommonDetailScreenTextField extends StatelessWidget {
     this.textEditingController,
     this.validationFunction,
     this.onFieldSubmitted,
-this.textInputAction,
-this.keyboardType,
+    this.textInputAction,
+    this.keyboardType,
   });
 
   @override
@@ -47,8 +47,7 @@ this.keyboardType,
       keyboardType: keyboardType,
       controller: textEditingController,
       validator: validationFunction,
-                textInputAction: textInputAction,
-
+      textInputAction: textInputAction,
       style: TextStyle(
           color: ColorConst.textColor22,
           fontSize: 14,
@@ -65,10 +64,12 @@ this.keyboardType,
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(color: ColorConst.greyE4)),
           suffixIcon: widget ?? SizedBox.shrink(),
-          prefixIcon:prefixIcon==null?null: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SvgPicture.asset(prefixIcon!),
-          ),
+          prefixIcon: prefixIcon == null
+              ? null
+              : Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SvgPicture.asset(prefixIcon!),
+                ),
           hintText: hintText,
           hintStyle: TextStyle(
               color: ColorConst.greyA6,
@@ -104,19 +105,19 @@ class _CommonButtonState extends State<CommonButton> {
 }
 
 selectGradeBottomSheet() {
-  final List gradeList1 = ["6th", "7th", "8th", "9th", "10th", "4th", "5th"];
+  // final List gradeList1 = ["6th", "7th", "8th", "9th", "10th", "4th", "5th"];
 
-  final List gradeList2 = [
-    "JEE (11th)",
-    "NEET (11th)",
-    "Jee & Neet (11th)",
-  ];
+  // final List gradeList2 = [
+  //   "JEE (11th)",
+  //   "NEET (11th)",
+  //   "Jee & Neet (11th)",
+  // ];
 
-  final List gradeList3 = [
-    "Jee (12th)",
-    "NEET (12th)",
-    "Jee & Neet (12th)",
-  ];
+  // final List gradeList3 = [
+  //   "Jee (12th)",
+  //   "NEET (12th)",
+  //   "Jee & Neet (12th)",
+  // ];
   final ClassListController classListController =
       Get.put(di.sl<ClassListController>());
   final BoardListController boardListController =
@@ -182,15 +183,17 @@ selectGradeBottomSheet() {
                               color: ColorConst.textColor22,
                               fontSize: 18.0,
                             ),
-                            commonGradeGrid(
-                                list: boardListController.boardAndClassData),
-                            TextWidget.openSansBoldText(
+                            CommonGradeGrid(
+                              list: boardListController.boardAndClassData,
+                            ),  TextWidget.openSansBoldText(
                               text: "11th Grade",
                               color: ColorConst.textColor22,
                               fontSize: 18.0,
                             ),
-                            commonGradeGrid(
-                                list: classListController.classListData),
+                            CommonGradeGrid(
+                              list: classListController.classListData,
+                            ),
+                
                             // TextWidget.openSansBoldText(
                             //   text: "12th Grade",
                             //   color: ColorConst.textColor22,
@@ -352,7 +355,7 @@ commonGradeGrid({
 }) =>
     LayoutBuilder(builder: (context, constraints) {
       final ClassListController classListController = Get.find();
-      final BoardListController boardListController = Get.find();
+      // final BoardListController boardListController = Get.find();
 
       final RegisterController controller = Get.find();
 
@@ -375,23 +378,24 @@ commonGradeGrid({
                   return GestureDetector(
                     onTap: () {
                       update(() {
-                        if (selectedIndex == index) {
-                          selectedIndex = -1;
-                        } else {
-                          selectedIndex = index;
-                          if (classListController
-                                  .classListData!.data![index].name ==
-                              list.data![index].name) {
-                            log('class');
-                            log(list.data![index].name.toString());
-                            controller.classId.value = list.data![index].id!;
-                          } else {
-                            log('board');
-                            log(list.data![index].name.toString());
-                            controller.boardId.value = list.data![index].id!;
-                          }
-                        }
-                        log(selectedIndex.toString());
+                        selectedIndex = index;
+                        // if (classListController
+                        //         .classListData!.data![index].name ==
+                        //     list.data![index].name) {
+                        //   log('class');
+                        //   log(list.data![index].name.toString());
+                        //   controller.classId.value = list.data![index].id!;
+                        // } else {
+                        //   log('board');
+                        //   log(list.data![index].name.toString());
+                        //   controller.boardId.value = list.data![index].id!;
+                        // }
+                        //   if (selectedIndex == index) {
+                        //     selectedIndex = -1;
+                        //   } else {
+
+                        //   }
+                        //   log(selectedIndex.toString());
                       });
                     },
                     child: Container(
@@ -419,5 +423,100 @@ class MyBehavior extends ScrollBehavior {
   Widget buildOverscrollIndicator(
       BuildContext context, Widget child, ScrollableDetails details) {
     return child;
+  }
+}
+
+class CommonGradeGrid extends StatefulWidget {
+  BoardAndClassModel? list;
+  CommonGradeGrid({this.list});
+  @override
+  _CommonGradeGridState createState() => _CommonGradeGridState();
+}
+
+class _CommonGradeGridState extends State<CommonGradeGrid> {
+  int selectedIndex = -1; // Initialize with an invalid index
+
+  final List<String> dataList = [
+    'Item 1',
+    'Item 2',
+    'Item 3',
+    'Item 4',
+    'Item 5',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+          final ClassListController classListController = Get.find();
+      // final BoardListController boardListController = Get.find();
+
+      final RegisterController controller = Get.find();
+    return LayoutBuilder(builder: (context, constraints) {
+      return widget.list == null
+          ? SizedBox()
+          : GridView.count(
+              padding: EdgeInsets.only(top: 15, bottom: 20),
+              childAspectRatio:
+                  MediaQuery.of(context).size.aspectRatio * 3 / 0.5,
+              shrinkWrap: true,
+              crossAxisCount: 2,
+              crossAxisSpacing: 9,
+              mainAxisSpacing: 10,
+              physics: NeverScrollableScrollPhysics(),
+              children: List.generate(
+                widget.list!.data!.length,
+                (index) =>
+                        GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedIndex = index;
+                              if (classListController
+                                .classListData!.data![index].name ==
+                            widget.list!.data![index].name) {
+                          log('class');
+                          log(widget.list!.data![index].name.toString());
+                          controller.classId.value = widget.list!.data![index].id!;
+                        } else {
+                          log('board');
+                          log(widget.list!.data![index].name.toString());
+                          controller.boardId.value = widget.list!.data![index].id!;
+                        }
+                      });
+                     
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                              color: selectedIndex == index
+                                  ? ColorConst.appColor
+                                  : ColorConst.greyE4,
+                              width: 1)),
+                      alignment: Alignment.center,
+                      child: TextWidget.openSansMediumText(
+                          text: widget.list!.data![index].name,
+                          color: ColorConst.textColor22,
+                          fontSize: 18.0),
+                    ),
+                  )
+               
+              ).toList(),
+            );
+
+      //  ListView.builder(
+      //   itemCount: dataList.length,
+      //   itemBuilder: (context, index) {
+      //     return ListTile(
+      //       title: Text(dataList[index]),
+      //       onTap: () {
+      //         // Update the selected index when an item is tapped
+
+      //       },
+      //       tileColor: index == selectedIndex
+      //           ? Colors.blueAccent.withOpacity(0.5)
+      //           : null,
+      //     );
+      //   },
+      // ),
+    });
   }
 }

@@ -86,10 +86,10 @@ class _SubjectScreenState extends State<SubjectScreen> {
     return Scaffold(
       backgroundColor: ColorConst.white,
       body: WillPopScope(
-        onWillPop: () async {
-          Get.offAll(HomeScreen());
-          return false;
-        },
+  onWillPop: () async {
+    Get.offAll(HomeScreen());
+    return false;
+  },
         child:
         
          Obx(() {

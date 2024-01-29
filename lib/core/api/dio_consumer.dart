@@ -72,9 +72,11 @@ class DioConsumer extends ApiConsumer {
         path,
         data: formDataIsEnabled ? FormData.fromMap(body!) : data,
         options: Options(
-          headers: headers,
-          contentType: Headers.jsonContentType
-        ),
+            receiveTimeout:
+                Duration(minutes: 3), // 30 seconds for receive timeout
+            sendTimeout: Duration(minutes: 3),
+            headers: headers,
+            contentType: Headers.jsonContentType),
         queryParameters: queryParameters,
       );
 

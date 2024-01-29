@@ -8,6 +8,8 @@ import 'package:byjus/features/terms_and_conditions/terms_and_conditions_injecti
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
+import 'features/help_center/help_center_injection_container.dart';
+import 'features/privacyPolicy/privacy_policy_injection_container.dart';
 import 'features/profile/profile_injection_container.dart';
 import 'features/subject/subject_injection_container.dart';
 
@@ -15,11 +17,7 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   // controllers
-  // sl.registerFactory<LocaleCubit>(
-  //     () => LocaleCubit(changeLangUseCase: sl(), getSavedLangUseCase: sl()));
-  // sl.registerFactory<ThemeCubit>(() => ThemeCubit(
-  //       preferenceManager: sl(),
-  //     ));
+
 
   // Features
   initAuthFeature();
@@ -27,6 +25,8 @@ Future<void> init() async {
   initHomeFeature();
   initSubjectFeature();
   initProfileFeature();
+  initPrivacyPolicyFeature();
+  initHelpCenterFeature();
   //core
 
   sl.registerLazySingleton(() => Dio());

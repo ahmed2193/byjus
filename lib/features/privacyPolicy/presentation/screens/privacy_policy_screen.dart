@@ -1,33 +1,37 @@
+
+
+
 import 'package:byjus/constants/colors.dart';
 import 'package:byjus/constants/textWidget.dart';
-import 'package:byjus/features/terms_and_conditions/presentation/controllers/terms_and_conditions_controller.dart';
+import 'package:byjus/utils/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:byjus/injection_container.dart' as di;
 
 import '../../../../core/app_state.dart';
+import '../controllers/privacy_policy_controller.dart';
 
 
-class TermsConditionScreen extends StatelessWidget {
+class PrivacyPolicyScreen extends StatelessWidget {
 
-  final TermsAndConditionsController termsAndConditionsController =
-      Get.put(di.sl<TermsAndConditionsController>());
+  final PrivacyPolicyController privacyPolicyController =
+      Get.put(di.sl<PrivacyPolicyController>());
 
   Widget _buildBodyContent() {
-    // TermsAndConditionsController = Get.put(TermsAndConditionsController)
+    // PrivacyPolicyController = Get.put(PrivacyPolicyController)
 
     return Obx(() {
-      switch (termsAndConditionsController.apiState.value) {
+      switch (privacyPolicyController.apiState.value) {
         case ApiState.loading:
-          return Center(child: CircularProgressIndicator());
+          return LoadingIndicator();
         case ApiState.success:
           return HtmlWidget(
-            termsAndConditionsController.contentData.value,
+            privacyPolicyController.contentData.value,
             // textStyle: Theme.of(context).textTheme.headlineSmall,
           );
         case ApiState.error:
-          return Text(termsAndConditionsController.errorMessage.value);
+          return Text(privacyPolicyController.errorMessage.value);
         default:
           return Container(); // Handle other cases if needed
       }
@@ -49,7 +53,7 @@ class TermsConditionScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextWidget.openSansBoldText(
-                text: "Terms & condition",
+                text: "Privacy Policy",
                 color: ColorConst.textColor22,
                 fontSize: 24.0),
             SizedBox(

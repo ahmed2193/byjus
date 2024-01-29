@@ -6,11 +6,10 @@ import 'package:byjus/controller/home_controller.dart';
 import 'package:byjus/core/app_state.dart';
 import 'package:byjus/features/auth/presentation/controllers/logout_controller.dart';
 import 'package:byjus/features/auth/presentation/controllers/user_info_controller.dart';
+import 'package:byjus/features/privacyPolicy/presentation/screens/privacy_policy_screen.dart';
 import 'package:byjus/screen/bookmark/bookmark_screen.dart';
-import 'package:byjus/screen/helpCenter/help_center_screen.dart';
 import 'package:byjus/screen/learningAnalysis/learning_analysis_screen.dart';
 import 'package:byjus/screen/notification/notification_screen.dart';
-import 'package:byjus/screen/privacyPolicy/privacy_policy_screen.dart';
 import 'package:byjus/screen/termsCondition/terms_condition_screen.dart';
 import 'package:byjus/utils/loading_indicator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -19,7 +18,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:byjus/injection_container.dart' as di;
 
-import '../../features/profile/presentation/screens/subscreen/viewAnalysis/view_analysis_screen.dart';
+import '../help_center/presentation/screens/help_center_screen.dart';
+import '../profile/presentation/screens/subscreen/viewAnalysis/view_analysis_screen.dart';
 
 class DrawerScreen extends StatelessWidget {
   final HomeController homeController = Get.find();
