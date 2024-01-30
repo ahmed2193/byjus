@@ -115,7 +115,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     )),
                                 MaterialButton(
                                   onPressed: () {
-                                    // Get.to(ProfileScreen());
+                                    FocusScope.of(context).unfocus();
                                     apiController.editProfile(
                                         context: context,
                                         profileImage: _profileImageController
@@ -255,9 +255,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   color: ColorConst.greyC5,
                                 )),
                             commonProfileColumn(
-                              text: "Name",
-                              hintText: "+91-1234567890",
-                            ),
+                                text: "Phone Number",
+                                hintText: "+91-1234567890",
+                                controller: apiController.mobileController),
                             commonProfileColumn(
                                 text: "Email ID",
                                 hintText: "Enter Your email",
@@ -319,17 +319,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                 ),
               ),
-          apiController.isLoading.value
-                            
-                    ? Container(
-                        color: Colors.white.withOpacity(0.8),
-                        height: MediaQuery.of(context).size.height,
-                        width: MediaQuery.of(context).size.width,
-                        child: const LoadingIndicator(),
-                      )
-                    : const SizedBox()
-          
-          
+              apiController.isLoading.value
+                  ? Container(
+                      color: Colors.white.withOpacity(0.8),
+                      height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width,
+                      child: const LoadingIndicator(),
+                    )
+                  : const SizedBox()
             ],
           ),
         ));

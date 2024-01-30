@@ -67,7 +67,7 @@ class EditProfileController extends GetxController {
 
     dateController.text = userInfo.birthDate!;
     log(userInfo.gender!);
-    userInfo.gender!.contains('Male')
+    userInfo.gender!.contains('Male') || userInfo.gender!.contains('male')
         ? selectedGender.value = 'Male'
         : selectedGender.value = 'Female';
     super.onInit();

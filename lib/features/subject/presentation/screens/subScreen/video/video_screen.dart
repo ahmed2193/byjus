@@ -45,13 +45,17 @@ class _VideoScreenState extends State<VideoScreen> {
   double aspectRatio = 16 / 9; // Default aspect ratio
   Future<void> initializePlayer() async {
     _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(
-        'https://assets.mixkit.co/videos/preview/mixkit-spinning-around-the-earth-29351-large.mp4'));
+        'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'));
 
     await Future.wait([
       _videoPlayerController.initialize(),
     ]);
-    _createChewieController();
+
+    if (_videoPlayerController.value.isInitialized) {
+ _createChewieController();
     setState(() {});
+}
+   
   }
 
   void _createChewieController() {
@@ -77,27 +81,23 @@ class _VideoScreenState extends State<VideoScreen> {
     super.dispose();
   }
 
-  void _calculateAspectRatio() {
-    // Check if the video player is initialized and has the video size
-    if (_videoPlayerController.value.isInitialized) {
-      // Obtain the original video size
-      Size originalSize = _videoPlayerController.value.size;
+void _calculateAspectRatio() {
+  if (_videoPlayerController.value.isInitialized &&_chewieController != null &&
+                      _chewieController!
+                          .videoPlayerController.value.isInitialized) {
+    Size originalSize = _videoPlayerController.value.size;
+    double newAspectRatio = originalSize.width / originalSize.height;
 
-      // Calculate the aspect ratio
-      double newAspectRatio = originalSize.width / originalSize.height;
-
-      // Update the aspect ratio only if it's different
-      if (newAspectRatio != aspectRatio) {
-        setState(() {
-          aspectRatio = newAspectRatio;
-          _chewieController = _chewieController!.copyWith(
-            aspectRatio: aspectRatio,
-          );
-        });
-      }
+    if (newAspectRatio != aspectRatio) {
+      setState(() {
+        aspectRatio = newAspectRatio;
+        _chewieController = _chewieController!.copyWith(
+          aspectRatio: aspectRatio,
+        );
+      });
     }
   }
-
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,42 +122,7 @@ class _VideoScreenState extends State<VideoScreen> {
                     ),
             ),
           ),
-          // Container(
-          //   height: 313,
-          //   width: Get.width,
-          //   decoration: BoxDecoration(
-          //       image: DecorationImage(
-          //           image: AssetImage(ImageConst.vedioScreenBgImage),
-          //           fit: BoxFit.fill)),
-          //   child: Padding(
-          //     padding: const EdgeInsets.only(
-          //         top: 40, bottom: 90, left: 20, right: 20),
-          //     child: Column(
-          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //       children: [
-          //         Row(
-          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //           children: [
-          //             InkWell(
-          //                 onTap: () {
-          //                   Get.back();
-          //                 },
-          //                 child: Icon(
-          //                   Icons.arrow_back_outlined,
-          //                   color: ColorConst.white,
-          //                 )),
-          //             Icon(
-          //               Icons.settings_outlined,
-          //               color: ColorConst.white,
-          //             )
-          //           ],
-          //         ),
-          //         SvgPicture.asset(ImageConst.pauseIcon),
-          //         Image.asset(ImageConst.videoDescImage),
-          //       ],
-          //     ),
-          //   ),
-          // ),
+
           Positioned(
             top: 45,
             left: 20,
@@ -300,39 +265,3 @@ class _VideoScreenState extends State<VideoScreen> {
   }
 }
 
-
-
-// class CustomChewieControls extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return ChewieControls(
-//       backgroundColor: Colors.transparent, // Make controls background transparent
-//       overlay: CustomChewieOverlay(),
-//     );
-//   }
-// }
-
-class CustomChewieOverlay extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          IconButton(
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              // Handle settings button press
-              // You can show a settings dialog or navigate to a settings screen
-              print('Settings button pressed');
-            },
-          ),
-          Text(
-            'Custom Overlay',
-            style: TextStyle(fontSize: 16),
-          ),
-        ],
-      ),
-    );
-  }
-}

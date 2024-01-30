@@ -23,8 +23,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final HomeController homeController = Get.put(HomeController());
   final GlobalKey<ScaffoldState> _key = GlobalKey();
-  final SubjectController subjectController = Get.put(
-    di.sl<SubjectController>(),
+  final SubjectController subjectController = Get.find(
   );
   fetchData() {
     subjectController.subjectData == null

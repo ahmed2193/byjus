@@ -6,6 +6,9 @@ import 'package:byjus/features/Welcome/welcome_screen.dart';
 import 'package:get/get.dart';
 import 'package:byjus/injection_container.dart' as di;
 
+import '../features/home/presentation/controllers/get_subject_controller.dart';
+import '../features/subject/presentation/controllers/get_subject_chapter_controller.dart';
+
 class SplashController extends GetxController{
 
   @override
@@ -21,6 +24,9 @@ class SplashController extends GetxController{
   if (onBoarding == null) {
     return  Get.to(WelcomeScreen()) ;
   } else if (token != null) {
+    Get.put(
+    di.sl<SubjectController>(),
+  );
     return Get.to(HomeScreen());
   } else {
     return Get.to(LoginScreen()) ;

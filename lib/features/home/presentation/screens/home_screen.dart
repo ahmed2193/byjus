@@ -29,7 +29,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   initState() {
     super.initState();
-   userInfoController.userInfo.value==null? userInfoController.getSavedLoginCredentials():null;
+    userInfoController.userInfo.value == null
+        ? userInfoController.getSavedLoginCredentials()
+        : null;
     // modalBottomSheetMenu(context);
   }
 
@@ -106,9 +108,7 @@ class SubjectWidjet extends StatelessWidget {
   });
 
   final HomeController homeController;
-  final SubjectController subjectController = Get.put(
-    di.sl<SubjectController>(),
-  );
+  final SubjectController subjectController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Column(

@@ -86,239 +86,244 @@ class _SubjectScreenState extends State<SubjectScreen> {
     return Scaffold(
       backgroundColor: ColorConst.white,
       body: WillPopScope(
-  onWillPop: () async {
-    Get.offAll(HomeScreen());
-    return false;
-  },
-        child:
-        
-         Obx(() {
-          if (subjectController.apiState.value == ApiState.loading) {
-            return LoadingIndicator();
-          } else if (subjectController.apiState.value == ApiState.success) {
-            var subjectChapterList = subjectController.subjectChapterData;
-            return Stack(
-              children: [
-                Container(
-                  height: 250,
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: NetworkImage(ImageConst.bgImage),
-                          fit: BoxFit.fill)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 60,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            InkWell(
-                                onTap: () {
-                                  Get.offAll(HomeScreen());
-                                },
-                                child: Icon(
-                                  Icons.arrow_back_sharp,
-                                  color: ColorConst.textColor22,
-                                )),
-                            InkWell(
-                                onTap: () {
-                                  Get.to(BookMarkScreen());
-                                },
-                                child: SvgPicture.asset(ImageConst.bookmark)),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                Text(
-                                  widget.name!,
-                                  style: TextStyle(
-                                      fontSize: 22.0,
-                                      color: ColorConst.textColor22,
-                                      fontFamily: robotoMediumFont,
-                                      overflow: TextOverflow.clip,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                Row(
-                                  children: [
-                                    SvgPicture.asset(ImageConst.chapterIcon),
-                                    SizedBox(
-                                      width: 12,
-                                    ),
-                                    TextWidget.openSansMediumText(
-                                        fontSize: 14.0,
-                                        color: ColorConst.textColor22,
-                                        text:
-                                            "${subjectChapterList!.data!.totalChapter} Chapters")
-                                  ],
-                                ),
-                              ],
-                            ),
-                            SvgPicture.asset(ImageConst.physicsImage)
-                          ],
-                        ),
-                      ],
-                    ),
+          onWillPop: () async {
+            // Get.offAll(HomeScreen());
+            return false;
+          },
+          child: Stack(
+            children: [
+              Container(
+                height: 250,
+                width: Get.width,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(ImageConst.bgImage),
+                        fit: BoxFit.fill)),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 60,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                              onTap: () {
+                                Navigator.of(context).pop();
+                                // Get.offAll(HomeScreen());
+                              },
+                              child: Icon(
+                                Icons.arrow_back_sharp,
+                                color: ColorConst.textColor22,
+                              )),
+                          InkWell(
+                              onTap: () {
+                                Get.to(BookMarkScreen());
+                              },
+                              child: SvgPicture.asset(ImageConst.bookmark)),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                widget.name!,
+                                style: TextStyle(
+                                    fontSize: 22.0,
+                                    color: ColorConst.textColor22,
+                                    fontFamily: robotoMediumFont,
+                                    overflow: TextOverflow.clip,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                              SizedBox(
+                                height: 12,
+                              ),
+                              Row(
+                                children: [
+                                  SvgPicture.asset(ImageConst.chapterIcon),
+                                  SizedBox(
+                                    width: 12,
+                                  ),
+                                  Obx(() {
+                                    return subjectController.apiState.value ==
+                                            ApiState.success
+                                        ? TextWidget.openSansMediumText(
+                                            fontSize: 14.0,
+                                            color: ColorConst.textColor22,
+                                            text:
+                                                "${subjectController.subjectChapterData!.data!.totalChapter} Chapters")
+                                        : SizedBox();
+                                  })
+                                ],
+                              ),
+                            ],
+                          ),
+                          SvgPicture.asset(ImageConst.physicsImage)
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 210.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(40),
-                        topRight: Radius.circular(40)),
-                    child: Container(
-                      height: Get.height,
-                      width: Get.width,
-                      decoration: BoxDecoration(
-                          color: ColorConst.white,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(40),
-                              topRight: Radius.circular(40))),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 24),
-                            child: TextWidget.robotoMediumText(
-                                color: ColorConst.textColor22,
-                                text: "Chapters",
-                                fontSize: 20.0),
-                          ),
-                          Expanded(
-                            child: ListView.builder(
-                              itemCount:
-                                  subjectChapterList.data!.chapterList!.length,
-                              padding:
-                                  EdgeInsets.only(left: 24, right: 24, top: 18),
-                              physics: BouncingScrollPhysics(),
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) => Padding(
-                                padding: const EdgeInsets.only(bottom: 24.0),
-                                child: InkWell(
-                                  onTap: () {
-                                    Get.to(ChapterDetailsScreen(
-
-                                      id:int.parse(subjectChapterList
-                                              .data!.chapterList![index].id!) ,
-                                      name:subjectChapterList
-                                              .data!.chapterList![index].name ,
-                                    ));
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: ColorConst.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color:
-                                                  Colors.black.withOpacity(0.1),
-                                              blurRadius: 12)
-                                        ]),
-                                    child: Row(
-                                      children: [
-                                        // Image.asset(
-                                        //   physicsList[index]["image"],
-                                        //   height: 86,
-                                        //   width: 86,
-                                        // ),
-                                        CachedNetworkImage(
-                                          imageUrl: subjectChapterList
-                                              .data!.chapterList![index].image!,
-                                          fit: BoxFit.cover,
-                                          height: 86,
-                                          width: 86,
-                                          placeholder: (context, url) =>
-                                              LoadingImageIndicator(),
-                                          errorWidget: (context, url, error) =>
-                                              Icon(Icons
-                                                  .error), // Widget to display on error
-                                        ),
-                                        SizedBox(
-                                          width: 12,
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              TextWidget.openSansSemiBoldText(
-                                                  text: subjectChapterList.data!
-                                                      .chapterList![index].name,
-                                                  color: ColorConst.textColor22,
-                                                  fontSize: 15.0),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  // TextWidget.openSansBoldText(
-                                                  //     text: physicsList[index]
-                                                  //         ["concept"],
-                                                  //     fontSize: 14.0,
-                                                  //     color:
-                                                  //         ColorConst.appColor),
-                                                  // SizedBox(
-                                                  //   width: 5,
-                                                  // ),
-                                                  TextWidget
-                                                      .openSansSemiBoldText(
-                                                          text:
-                                                              subjectChapterList
-                                                                  .data!
-                                                                  .chapterList![
-                                                                      index]
-                                                                  .title,
-                                                          color:
-                                                              ColorConst.grey64,
-                                                          fontSize: 14.0),
-                                                ],
-                                              )
-                                            ],
+              ),
+              Obx(() {
+                if (subjectController.apiState.value == ApiState.loading) {
+                  return LoadingIndicator();
+                } else if (subjectController.apiState.value ==
+                    ApiState.success) {
+                  var subjectChapterList = subjectController.subjectChapterData;
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 210.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40)),
+                      child: Container(
+                        height: Get.height,
+                        width: Get.width,
+                        decoration: BoxDecoration(
+                            color: ColorConst.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(40),
+                                topRight: Radius.circular(40))),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 24),
+                              child: TextWidget.robotoMediumText(
+                                  color: ColorConst.textColor22,
+                                  text: "Chapters",
+                                  fontSize: 20.0),
+                            ),
+                            Expanded(
+                              child: ListView.builder(
+                                itemCount: subjectChapterList!
+                                    .data!.chapterList!.length,
+                                padding: EdgeInsets.only(
+                                    left: 24, right: 24, top: 18),
+                                physics: BouncingScrollPhysics(),
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) => Padding(
+                                  padding: const EdgeInsets.only(bottom: 24.0),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Get.to(ChapterDetailsScreen(
+                                        id: int.parse(subjectChapterList
+                                            .data!.chapterList![index].id!),
+                                        name: subjectChapterList
+                                            .data!.chapterList![index].name,
+                                      ));
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: ColorConst.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.1),
+                                                blurRadius: 12)
+                                          ]),
+                                      child: Row(
+                                        children: [
+                                          // Image.asset(
+                                          //   physicsList[index]["image"],
+                                          //   height: 86,
+                                          //   width: 86,
+                                          // ),
+                                          CachedNetworkImage(
+                                            imageUrl: subjectChapterList.data!
+                                                .chapterList![index].image!,
+                                            fit: BoxFit.cover,
+                                            height: 86,
+                                            width: 86,
+                                            placeholder: (context, url) =>
+                                                LoadingImageIndicator(),
+                                            errorWidget: (context, url,
+                                                    error) =>
+                                                Icon(Icons
+                                                    .error), // Widget to display on error
                                           ),
-                                        )
-                                      ],
+                                          SizedBox(
+                                            width: 12,
+                                          ),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                TextWidget.openSansSemiBoldText(
+                                                    text: subjectChapterList
+                                                        .data!
+                                                        .chapterList![index]
+                                                        .name,
+                                                    color:
+                                                        ColorConst.textColor22,
+                                                    fontSize: 15.0),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    // TextWidget.openSansBoldText(
+                                                    //     text: physicsList[index]
+                                                    //         ["concept"],
+                                                    //     fontSize: 14.0,
+                                                    //     color:
+                                                    //         ColorConst.appColor),
+                                                    // SizedBox(
+                                                    //   width: 5,
+                                                    // ),
+                                                    TextWidget.openSansSemiBoldText(
+                                                        text: subjectChapterList
+                                                            .data!
+                                                            .chapterList![index]
+                                                            .title,
+                                                        color:
+                                                            ColorConst.grey64,
+                                                        fontSize: 14.0),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                )
-              ],
-            );
-          } else if (subjectController.apiState.value == ApiState.error) {
-            return Center(
-              child: TextWidget.openSansBoldText(
-                  text: subjectController.errorMessage.value,
-                  color: ColorConst.grey64,
-                  fontSize: 17.0),
-            );
-          } else {
-            return Text('Unknown error');
-          }
-        }),
+                  );
+                } else if (subjectController.apiState.value == ApiState.error) {
+                  return Center(
+                    child: TextWidget.openSansBoldText(
+                        text: subjectController.errorMessage.value,
+                        color: ColorConst.grey64,
+                        fontSize: 17.0),
+                  );
+                } else {
+                  return Text('Unknown error');
+                }
+              }),
+            ],
+          )
 
-      
-        /* Padding(
+          /* Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -437,10 +442,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
             ],
           ),
         ),*/
-      ),
+          ),
     );
   }
 }
-
-
-      

@@ -436,13 +436,6 @@ class CommonGradeGrid extends StatefulWidget {
 class _CommonGradeGridState extends State<CommonGradeGrid> {
   int selectedIndex = -1; // Initialize with an invalid index
 
-  final List<String> dataList = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -502,21 +495,7 @@ class _CommonGradeGridState extends State<CommonGradeGrid> {
               ).toList(),
             );
 
-      //  ListView.builder(
-      //   itemCount: dataList.length,
-      //   itemBuilder: (context, index) {
-      //     return ListTile(
-      //       title: Text(dataList[index]),
-      //       onTap: () {
-      //         // Update the selected index when an item is tapped
 
-      //       },
-      //       tileColor: index == selectedIndex
-      //           ? Colors.blueAccent.withOpacity(0.5)
-      //           : null,
-      //     );
-      //   },
-      // ),
     });
   }
 }

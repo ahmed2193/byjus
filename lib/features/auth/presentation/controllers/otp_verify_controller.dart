@@ -14,6 +14,9 @@ import '../../../../../core/api/status_code.dart';
 import '../../../../../core/error/failures.dart';
 import 'package:byjus/injection_container.dart' as di;
 
+import '../../../home/presentation/controllers/get_subject_controller.dart';
+import '../../../subject/presentation/controllers/get_subject_chapter_controller.dart';
+
 
 class OtpVerifyController extends GetxController {
   final OtpVerify otpVerifyUseCase;
@@ -57,6 +60,9 @@ class OtpVerifyController extends GetxController {
               .setAccessToken(authenticatedUser!.data!.token!);
           await userInfoController.saveLoginCredentials(
               userModel: authenticatedUser!);
+             Get.put(
+    di.sl<SubjectController>(),
+  );
           Get.to(HomeScreen());
         } else {
           isError.value = true;
