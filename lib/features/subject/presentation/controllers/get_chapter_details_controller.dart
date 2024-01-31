@@ -1,4 +1,5 @@
 import 'package:byjus/core/api/base_response.dart';
+import 'package:byjus/features/subject/data/models/chapter_details_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import '../../../../core/app_state.dart';
@@ -12,7 +13,7 @@ class ChapterDetailsController extends GetxController {
   ChapterDetailsController({required this.useCase});
   var apiState = ApiState.loading.obs;
   RxString errorMessage = ''.obs;
-  SubjectChapterModel? subjectChapterData;
+  ChapterDetailsModel? chapterDetailsData;
 
   Future<void> fetchData({
     required int id
@@ -30,7 +31,7 @@ class ChapterDetailsController extends GetxController {
       }
       apiState(ApiState.success);
       print(data.data);
-      return subjectChapterData = data.data;
+      return chapterDetailsData = data.data;
     });
   }
 

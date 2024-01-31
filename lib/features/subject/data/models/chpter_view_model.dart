@@ -1,17 +1,17 @@
 class ChapterViewmodel {
   String? code;
   String? message;
-  List<Data>? data;
+  List<Videos>? videos;
 
-  ChapterViewmodel({this.code, this.message, this.data});
+  ChapterViewmodel({this.code, this.message, this.videos});
 
   ChapterViewmodel.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     message = json['message'];
     if (json['data'] != null) {
-      data = <Data>[];
+      videos = <Videos>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        videos!.add(new Videos.fromJson(v));
       });
     }
   }
@@ -19,7 +19,7 @@ class ChapterViewmodel {
 
 }
 
-class Data {
+class Videos {
   String? id;
   String? questionNo;
   String? chapterId;
@@ -32,7 +32,7 @@ class Data {
   String? video;
   String? image;
 
-  Data(
+  Videos(
       {this.id,
       this.questionNo,
       this.chapterId,
@@ -45,7 +45,7 @@ class Data {
       this.video,
       this.image});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  Videos.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     questionNo = json['question_no'];
     chapterId = json['chapter_id'];

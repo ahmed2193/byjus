@@ -10,6 +10,8 @@ import '../../../../features/subject/presentation/screens/subScreen/electrictCha
 import '../../../../features/subject/presentation/screens/subScreen/electrictCharges/learnView/learn_view.dart';
 import 'package:byjus/injection_container.dart' as di;
 
+import '../../../../utils/loading_indicator.dart';
+
 class ChapterDetailsScreen extends StatefulWidget {
   int? id;
   String? name;
@@ -83,21 +85,29 @@ class _ChapterDetailsScreenState extends State<ChapterDetailsScreen> {
           ),
           Obx(() {
             if (chapterDetailsController.apiState.value == ApiState.loading) {
-              return Expanded(
-                child: TabBarView(
-                  controller: physicsController.controller,
-                  children: [LearnView(), ExerciseView()],
-                ),
-              );
-              
-              // LoadingIndicator();
+              return
+              //  Expanded(
+              //   child: TabBarView(
+              //     controller: physicsController.controller,
+              //     children: [LearnView(
+
+              //       chaptrId: widget.id,
+              //     ), ExerciseView()],
+              //   ),
+              // );
+
+              LoadingIndicator();
             } else if (chapterDetailsController.apiState.value ==
                 ApiState.success) {
-
               return Expanded(
                 child: TabBarView(
                   controller: physicsController.controller,
-                  children: [LearnView(), ExerciseView()],
+                  children: [
+                    LearnView(
+                      chaptrId: widget.id,
+                    ),
+                    ExerciseView()
+                  ],
                 ),
               );
             } else if (chapterDetailsController.apiState.value ==

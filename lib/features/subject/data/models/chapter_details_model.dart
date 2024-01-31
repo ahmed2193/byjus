@@ -1,50 +1,29 @@
-class SubjectModel {
+class ChapterDetailsModel {
   String? code;
   String? message;
-  List<Data>? data;
+  Data? data;
 
-  SubjectModel({this.code, this.message, this.data});
+  ChapterDetailsModel({this.code, this.message, this.data});
 
-  SubjectModel.fromJson(Map<String, dynamic> json) {
+  ChapterDetailsModel.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     message = json['message'];
-    if (json['data'] != null) {
-      data = <Data>[];
-      json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
-      });
-    }
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
+
+
 }
 
 class Data {
-  String? id;
-  String? classId;
-  String? name;
-  String? image;
-  String? isActive;
-  String? isDeleted;
-  String? updatetime;
-  String? insertdate;
+  String? video;
+  String? mcq;
 
-  Data(
-      {this.id,
-      this.classId,
-      this.name,
-      this.image,
-      this.isActive,
-      this.isDeleted,
-      this.updatetime,
-      this.insertdate});
+  Data({this.video, this.mcq});
 
   Data.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    classId = json['class_id'];
-    name = json['name'];
-    image = json['image'];
-    isActive = json['is_active'];
-    isDeleted = json['is_deleted'];
-    updatetime = json['updatetime'];
-    insertdate = json['insertdate'];
+    video = json['video'];
+    mcq = json['mcq'];
   }
+
+
 }

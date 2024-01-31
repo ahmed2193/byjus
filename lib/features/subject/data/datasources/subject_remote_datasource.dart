@@ -7,6 +7,7 @@ import 'package:byjus/core/api/status_code.dart';
 import 'package:byjus/utils/app_strings.dart';
 
 import '../../../../utils/constants.dart';
+import '../models/chapter_details_model.dart';
 import '../models/chpter_view_model.dart';
 import '../models/subjects_chapter_model.dart';
 
@@ -52,7 +53,6 @@ class SubjectRemoteDataSourceImpl extends BaseSubjectRemoteDataSource {
   }) async {
     final response = await apiConsumer.post(EndPoints.chapterDetails,
         formDataIsEnabled: true, body: {AppStrings.chapterId: id});
-    log('responseJson[AppStrings.code]' * 10);
     final BaseResponse baseResponse =
         BaseResponse(statusCode: response.statusCode);
     final responseJson = Constants.decodeJson(response);
@@ -61,9 +61,8 @@ class SubjectRemoteDataSourceImpl extends BaseSubjectRemoteDataSource {
 //  log(responseJson);
     if (response.statusCode == StatusCode.ok &&
         responseJson[AppStrings.code] == '1') {
-      log(responseJson[AppStrings.code]);
-      log(responseJson);
-      baseResponse.data = SubjectChapterModel.fromJson(responseJson);
+      
+      baseResponse.data = ChapterDetailsModel.fromJson(responseJson);
     } else {
       baseResponse.message = responseJson[AppStrings.message];
     }
