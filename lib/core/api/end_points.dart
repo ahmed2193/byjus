@@ -13,4 +13,5 @@ class EndPoints {
   static const String editProfile = "user/edit";
   static const String contactUs = "service/contact_us";
   static const String privacypolicy = "service/privacypolicy_detial";
+  static const String chapterView = "main/getchapter_view";
 }

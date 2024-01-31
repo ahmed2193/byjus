@@ -65,4 +65,5 @@ class AppStrings {
   static const String userType = "user_type";
   static const String title = "title";
   static const String description = "description";
+  static const String type = "type";
 }

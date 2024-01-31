@@ -6,4 +6,5 @@ import '../../../../core/error/failures.dart';
 abstract class SubjectRepository {
   Future<Either<Failure, BaseResponse>> getChapterDetails({required int id});
   Future<Either<Failure, BaseResponse>> getSubjectChapter({required int id});
+  Future<Either<Failure, BaseResponse>> getChapterView({required int id});
 }

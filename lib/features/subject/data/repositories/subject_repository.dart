@@ -35,4 +35,14 @@ class SubjectRepositoryImpl implements SubjectRepository {
       return Left(ServerFailure(message: exception.message));
     }
   }
+  @override
+  Future<Either<Failure, BaseResponse>> getChapterView(
+      {required int id}) async {
+    try {
+      final response = await SubjectRemoteDataSource.getChapterView(id: id);
+      return Right(response);
+    } on ServerException catch (exception) {
+      return Left(ServerFailure(message: exception.message));
+    }
+  }
 }

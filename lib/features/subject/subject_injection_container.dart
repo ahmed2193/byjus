@@ -5,8 +5,11 @@ import '../../injection_container.dart';
 import 'data/repositories/subject_repository.dart';
 import 'domain/repositories/subject_repository.dart';
 import 'domain/usecases/get_chapter_details_usecase.dart';
+import 'domain/usecases/get_chapter_view_usecase.dart';
 import 'presentation/controllers/get_chapter_details_controller.dart';
 import 'package:byjus/features/subject/data/datasources/subject_remote_datasource.dart';
+
+import 'presentation/controllers/get_chapter_view_controller.dart';
 
 void initSubjectFeature() {
 // Blocs
@@ -21,6 +24,11 @@ void initSubjectFeature() {
       useCase: sl(),
     ),
   );
+  sl.registerFactory<ChapterViewController>(
+    () => ChapterViewController(
+      useCase: sl(),
+    ),
+  );
   // Use cases
   sl.registerLazySingleton<GetChapterDetailsUseCase>(
     () => GetChapterDetailsUseCase(chapterDetailsRepository: sl()),
@@ -28,7 +36,9 @@ void initSubjectFeature() {
   sl.registerLazySingleton<GetSubjectChapterUseCase>(
     () => GetSubjectChapterUseCase(subjectChapterRepository: sl()),
   );
-
+  sl.registerLazySingleton<GetChapterViewUseCase>(
+    () => GetChapterViewUseCase(chapterViewRepository: sl()),
+  );
   // Repository
   sl.registerLazySingleton<SubjectRepository>(
       () => SubjectRepositoryImpl(sl()));

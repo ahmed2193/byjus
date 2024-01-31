@@ -88,7 +88,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
       body: WillPopScope(
           onWillPop: () async {
             // Get.offAll(HomeScreen());
-            return false;
+            return true;
           },
           child: Stack(
             children: [
@@ -320,6 +320,8 @@ class _SubjectScreenState extends State<SubjectScreen> {
                   return Text('Unknown error');
                 }
               }),
+        
+        
             ],
           )
 
